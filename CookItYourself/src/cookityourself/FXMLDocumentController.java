@@ -21,10 +21,23 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label label;
     
+    //Primeira etapa de filtragem
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
+    private void buttonEntrada(ActionEvent event) {
+        System.out.println("Selecionado: Entrada");
+        label.setText("Entrada");
+    }
+    
+    @FXML
+    private void buttonPratoPrincipal(ActionEvent event) {
+        System.out.println("Selecionado: Prato Principal");
+        label.setText("Prato Principal");
+    }
+    
+    @FXML
+    private void buttonSobremesa(ActionEvent event) {
+        System.out.println("Selecionado: Sobremesa");
+        label.setText("Sobremesa");
     }
     
     @Override

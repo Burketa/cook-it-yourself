@@ -8,13 +8,13 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cookityourself.FXMLDocumentController">
     <children>
-        <Button fx:id="button" layoutX="74.0" layoutY="415.0" onAction="#handleButtonAction" prefHeight="66.0" prefWidth="151.0" text="Entrada" />
+        <Button fx:id="button" layoutX="74.0" layoutY="415.0" onAction="#buttonEntrada" prefHeight="66.0" prefWidth="151.0" text="Entrada" />
         <Label fx:id="label" layoutX="233.0" layoutY="112.0" minHeight="16" minWidth="69" prefWidth="335.0" text="Qual tipo de prato quer preparar ?" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="35.0" />
          </font>
       </Label>
-      <Button fx:id="button1" layoutX="325.0" layoutY="415.0" onAction="#handleButtonAction" prefHeight="66.0" prefWidth="151.0" text="Prato Principal" />
-      <Button fx:id="button11" layoutX="572.0" layoutY="415.0" onAction="#handleButtonAction" prefHeight="66.0" prefWidth="151.0" text="Sobremesa" />
+      <Button fx:id="button1" layoutX="325.0" layoutY="415.0" onAction="#buttonPratoPrincipal" prefHeight="66.0" prefWidth="151.0" text="Prato Principal" />
+      <Button fx:id="button11" layoutX="572.0" layoutY="415.0" onAction="#buttonSobremesa" prefHeight="66.0" prefWidth="151.0" text="Sobremesa" />
     </children>
 </AnchorPane>
