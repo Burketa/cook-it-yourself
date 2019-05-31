@@ -10,7 +10,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 
 /**
  *
@@ -20,6 +23,14 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private Label label;
+    @FXML
+    private Button button;
+    @FXML
+    private Button button1;
+    @FXML
+    private Button button11;
+    @FXML
+    private ListView listView;
     
     //Primeira etapa de filtragem
     @FXML
@@ -43,6 +54,7 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+        BDMercado bdmercado = new BDMercado();
+        listView.getItems().addAll(bdmercado.produtos);
+    }
 }

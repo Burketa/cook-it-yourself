@@ -12,6 +12,13 @@ package cookityourself;
 public class Ingrediente extends Produto {
     private float quantidade;
     private String medidaPadrao;
+
+    //Construtor com chamada para a classe pai
+    public Ingrediente(float quantidade, String medidaPadrao, int id, String nome, float preco) {
+        super(id, nome, preco);
+        this.quantidade = quantidade;
+        this.medidaPadrao = medidaPadrao;
+    }
     
     public void salvarIngrediente()
     {
