@@ -11,17 +11,18 @@ import java.sql.SQLException;
 public class Conexao {
     
     public static Connection getConexao() throws SQLException {
+        //Connection conn = null;
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Conectando ao banco de dados.");
+            System.out.println("Conectou ao banco");
             return DriverManager.getConnection("jdbc:mysql://localhost:3306/dbCook", "root", "2247");
         } catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());
         }      
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Conexao.getConexao();
     }
 }
