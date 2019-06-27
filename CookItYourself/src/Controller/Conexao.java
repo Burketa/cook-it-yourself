@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 public class Conexao {
     
     public static Connection getConexao() throws SQLException {
@@ -20,5 +19,9 @@ public class Conexao {
         } catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());
         }      
+    }
+    
+    public static void main(String[] args) {
+        Conexao.getConexao();
     }
 }
