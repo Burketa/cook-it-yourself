@@ -2,7 +2,7 @@
  * Cook It Yourself
  * Projeto de Ofina de Integração
  */
-package utils;
+package Controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,22 +10,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import cookityourself.Ingrediente;
+import Model.ReceitaIngrediente;
 
-public class dbIngrediente {
+public class dbReceitaIngrediente {
+    
     //Conexão com o banco
     private Connection conexao;
     
-    public dbIngrediente() throws SQLException {       
+    public dbReceitaIngrediente() throws SQLException {       
         this.conexao = Conexao.getConexao();
     }
     
     // CREATE - Adiciona um registro
-    public void adicionaIngrediente(Ingrediente i) throws SQLException {
+    public void adicionaIngrediente(ReceitaIngrediente i) throws SQLException {
+        
         // Prepara conexão p/ receber o comando SQL
         String sql = "INSERT INTO ingrediente (nomeIngrediente, precoIngrediente, estoqueIngrediente)"
-                + "VALUES(?, ?, ?)";       
+                + "VALUES(?, ?, ?)"; 
+        
         PreparedStatement stmt;
+        
         // stmt recebe o comando SQL
         stmt = this.conexao.prepareStatement(sql);
         
@@ -81,17 +85,17 @@ public class dbIngrediente {
     }*/
        
     // UPDATE - Atualiza registros
-    public void alteraIngrediente(Ingrediente i) throws SQLException {
+    public void alteraReceitaIngrediente(ReceitaIngrediente ri) throws SQLException {
+        
         // Prepara conexão p/ receber o comando SQL
         String sql = "UPDATE ingrediente set nomeIngrediente = ?, precoIngrediente = ?, estoqueIngrediente = ?"
                 + "WHERE idIngrediente = ?";
+        
         // stmt recebe o comando SQL
         PreparedStatement stmt = this.conexao.prepareStatement(sql);
         
         // Seta os valores p/ o stmt, substituindo os "?"
-        stmt.setString(1, i.getNomeIngrediente());
-        stmt.setString(2, i.getPrecoIngrediente());
-        stmt.setString(3, i.getEstoqueIngrediente());       
+        stmt.setString(1, ri.getQuantidade());    
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();
@@ -99,9 +103,11 @@ public class dbIngrediente {
     }
     
     // DELETE - Apaga registros
-    public void removeIngrediente(int idIngrediente) throws SQLException {       
+    public void removeIngrediente(int idIngrediente) throws SQLException {  
+        
         // Prepara conexão p/ receber o comando SQL
-        String sql = "DELETE FROM ingrediente WHERE idIngrediente = ?";
+        String sql = "DELETE FROM ReceitaIngrediente WHERE idIngrediente = ?";
+        
         // stmt recebe o comando SQL
         PreparedStatement stmt = this.conexao.prepareStatement(sql);
         
@@ -111,6 +117,5 @@ public class dbIngrediente {
         // Executa o codigo SQL, e fecha
         stmt.execute();
         stmt.close();
-        
-    }   
+    } 
 }

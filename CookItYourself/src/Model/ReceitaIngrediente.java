@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package Model;
 
 /**
  *
- * @author nick_
+ * @author Aluno
  */
-public class Conexao {
-    
+public class ReceitaIngrediente {
+    private int idReceita;
+    private int idIngrediente;
+
 }
