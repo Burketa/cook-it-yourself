@@ -5,33 +5,54 @@
  */
 package Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Aluno
  */
-public class Ingrediente extends Produto {
-    private float quantidade;
-    private String medidaPadrao;
-
-    //Construtor com chamada para a classe pai
-    public Ingrediente(float quantidade, String medidaPadrao, int id, String nome, float preco) {
-        super(id, nome, preco);
-        this.quantidade = quantidade;
-        this.medidaPadrao = medidaPadrao;
-    }
+public class Ingrediente {
+    private int idIngrediente;
+    private String nomeIngrediente;
+    private float precoIngrediente;
+    private int estoqueIngrediente;
     
-    public void salvarIngrediente()
-    {
-        
-    }
-
-    public void excluirIngrediente()
-    {
-        
-    }
-    
-    public void alterarIngrediente()
-    {
-        
-    }
+   public Ingrediente(int idIngrediente, String nomeIngrediente, float precoIngrediente, int estoqueIngrediente){ 
+       this.idIngrediente = idIngrediente;
+       this.nomeIngrediente = nomeIngrediente;
+       this.precoIngrediente = precoIngrediente;
+       this.estoqueIngrediente = estoqueIngrediente;
+   }
+   
+   public Ingrediente(){
+   }
+   
+   public int getIdIngrediente() {
+        return idIngrediente;
+   }
+   
+   public void setIdIngrediente(int idIngrediente) {
+        this.idIngrediente = idIngrediente;
+   }
+   
+   public String getNomeIngrediente() {
+        return nomeIngrediente;
+   }
+   
+   public void setNomeIngrediente(String nomeIngrediente) {
+        this.nomeIngrediente = nomeIngrediente;
+   }
+   
+   public float getPrecoIngrediente() {
+        return precoIngrediente;
+   }
+   
+   public void setPrecoIngrediente(float precoIngrediente) {
+        this.precoIngrediente = precoIngrediente;
+   }
+   
+   public int getEstoqueIngrediente() {
+        return estoqueIngrediente;
+   }
+   
 }
