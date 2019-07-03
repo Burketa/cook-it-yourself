@@ -34,9 +34,9 @@ public class dbReceita {
         stmt.setString(1, r.getNomeReceita());
         stmt.setString(2, r.getPreparoReceita());
         stmt.setString(3, r.getTempoReceita());
-        stmt.setString(4, r.getRendimentoReceita());
-        stmt.setString(5, r.getIdCategoria());
-        stmt.setString(6, r.getIdTipica());
+        stmt.setInt(4, r.getRendimentoReceita());
+        stmt.setInt(5, r.getIdCategoria());
+        stmt.setInt(6, r.getIdTipica());
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();
@@ -91,12 +91,12 @@ public class dbReceita {
         PreparedStatement stmt = this.conexao.prepareStatement(sql);
         
         // Seta os valores p/ o stmt, substituindo os "?"
-        stmt.setInt(7, r.getNomeReceita());
+        stmt.setString(7, r.getNomeReceita());
         stmt.setString(1, r.getPreparoReceita());
         stmt.setString(2, r.getTempoReceita());
-        stmt.setString(3, r.getRendimentoReceita());
-        stmt.setString(4, r.getIdCategoria());
-        stmt.setString(5, r.getIdTipica());        
+        stmt.setInt(3, r.getRendimentoReceita());
+        stmt.setInt(4, r.getIdCategoria());
+        stmt.setInt(5, r.getIdTipica());        
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();

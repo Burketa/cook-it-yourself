@@ -95,7 +95,7 @@ public class dbReceitaIngrediente {
         PreparedStatement stmt = this.conexao.prepareStatement(sql);
         
         // Seta os valores p/ o stmt, substituindo os "?"
-        stmt.setString(1, ri.getQuantidade());    
+        stmt.setFloat(1, ri.getQuantidade());    
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();

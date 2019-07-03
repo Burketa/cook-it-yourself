@@ -34,9 +34,9 @@ public class dbIngrediente {
         stmt = this.conexao.prepareStatement(sql);
         
         // Seta os valores p/ o stmt, substituindo os "?"
-        stmt.setString(1, i.getNomeIngrediente());
-        stmt.setString(2, i.getPrecoIngrediente());
-        stmt.setString(3, i.getEstoqueIngrediente());
+        stmt.setString(1, i.getNome());
+        stmt.setFloat(2, i.getPreco());
+        stmt.setInt(3, i.getEstoque());
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();
@@ -93,9 +93,9 @@ public class dbIngrediente {
         PreparedStatement stmt = this.conexao.prepareStatement(sql);
         
         // Seta os valores p/ o stmt, substituindo os "?"
-        stmt.setString(1, i.getNomeIngrediente());
-        stmt.setString(2, i.getPrecoIngrediente());
-        stmt.setString(3, i.getEstoqueIngrediente());       
+        stmt.setString(1, i.getNome());
+        stmt.setFloat(2, i.getPreco());
+        stmt.setInt(3, i.getEstoque());       
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();
