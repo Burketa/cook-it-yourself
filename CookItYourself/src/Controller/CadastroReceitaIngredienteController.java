@@ -38,73 +38,64 @@ public class CadastroReceitaIngredienteController {
 
     @FXML
     private ComboBox<?> cmbMedida;
-    
+
     @FXML
     private TextField nomeIngrediente;
-    
+
     @FXML
     private TextField precoIngrediente;
-    
+
     @FXML
     private TextField estoqueIngrediente;
-    
+
     @FXML
-    private void botaoNovoIngrediente(javafx.event.ActionEvent event) throws SQLException {
-        System.out.println("click Novo");
-        dbIngrediente db = new dbIngrediente();
-        Ingrediente ingrediente = new Ingrediente();
-        db.adicionaIngrediente(ingrediente);
-    }
-    
-    @FXML
-        private void botaoSalvarIngrediente(javafx.event.ActionEvent event) throws SQLException {
+    private void botaoSalvarIngrediente(javafx.event.ActionEvent event) throws SQLException {
         System.out.println("click Salvar");
+
         dbIngrediente db = new dbIngrediente();
-        //Ingrediente ingrediente = new Ingrediente(10, "ml", 1, "Água", 5);
         Ingrediente ingrediente = new Ingrediente();
-        
+
         ingrediente.setNome(nomeIngrediente.getText());
         ingrediente.setPreco(Float.parseFloat(precoIngrediente.getText()));
         ingrediente.setEstoque(Integer.parseInt(estoqueIngrediente.getText()));
-        
+
         db.adicionaIngrediente(ingrediente);
     }
-    
+
     @FXML
     private void botaoAlterarIngrediente(javafx.event.ActionEvent event) throws SQLException {
         System.out.println("click Alterar");
-        
+        System.out.println("NOME = " + nomeIngrediente.getText());
         dbIngrediente db = new dbIngrediente();
         Ingrediente ingrediente = new Ingrediente();
-        
+
         ingrediente.setNome(nomeIngrediente.getText());
         ingrediente.setPreco(Float.parseFloat(precoIngrediente.getText()));
         ingrediente.setEstoque(Integer.parseInt(estoqueIngrediente.getText()));
         //ingrediente.setid = selecionado na tabela de pesquisa
-        
+
         db.alteraIngrediente(ingrediente);
     }
-    
+
     @FXML
     private void botaoExcluirIngrediente(javafx.event.ActionEvent event) throws SQLException {
         System.out.println("click Excluir");
-        
+
         dbIngrediente db = new dbIngrediente();
         Ingrediente ingrediente = new Ingrediente();
-        
+
         //ingrediente.setid = selecionado na tabela de pesquisa
-        
         db.removeIngrediente(ingrediente.getId());
     }
-    
+
     @FXML
     private void botaoBuscarIngrediente(javafx.event.ActionEvent event) throws SQLException {
         System.out.println("click Buscar");
         dbIngrediente db = new dbIngrediente();
-        
-        //db.querySelect
+
+        db.pesquisaIngrediente();
     }
-    
+
     @FXML
     private void botaoFiltro(javafx.event.ActionEvent event) throws IOException {
         System.out.println("click Iniciar Filtro");

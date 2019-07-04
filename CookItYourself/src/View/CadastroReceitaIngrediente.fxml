@@ -47,7 +47,7 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TableView layoutX="90.0" layoutY="95.0" prefHeight="230.0" prefWidth="880.0">
+                                    <TableView id="tabela" fx:id="tabela" layoutX="90.0" layoutY="95.0" prefHeight="230.0" prefWidth="880.0">
                                       <columns>
                                         <TableColumn prefWidth="218.0" text="Nome Receita" />
                                         <TableColumn prefWidth="388.0" text="Modo Preparo" />
@@ -231,17 +231,17 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField id="nomeIngrediente" disable="true" layoutX="133.0" layoutY="78.0" prefHeight="30.0" prefWidth="306.0">
+                                    <TextField id="nomeIngrediente" fx:id="nomeIngrediente" layoutX="133.0" layoutY="78.0" prefHeight="30.0" prefWidth="306.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
-                                    <TextField id="precoIngrediente" disable="true" layoutX="133.0" layoutY="129.0" prefHeight="25.0" prefWidth="100.0">
+                                    <TextField id="precoIngrediente" fx:id="precoIngrediente" layoutX="133.0" layoutY="129.0" prefHeight="25.0" prefWidth="100.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
-                                    <TextField id="estoqueIngrediente" disable="true" layoutX="133.0" layoutY="181.0" prefHeight="25.0" prefWidth="100.0">
+                                    <TextField id="estoqueIngrediente" fx:id="estoqueIngrediente" layoutX="133.0" layoutY="181.0" prefHeight="25.0" prefWidth="100.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -250,11 +250,6 @@
                               </Pane>
                               <Pane layoutX="925.0" layoutY="393.0" prefHeight="358.0" prefWidth="257.0">
                                  <children>
-                                    <Button layoutX="32.0" layoutY="42.0" mnemonicParsing="false" onAction="#botaoNovoIngrediente" prefHeight="53.0" text="Cadastrar Novo Ingrediente">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </Button>
                                     <Button layoutX="81.0" layoutY="208.0" mnemonicParsing="false" onAction="#botaoAlterarIngrediente" prefHeight="53.0" prefWidth="120.0" text="Alterar">
                                        <font>
                                           <Font size="16.0" />

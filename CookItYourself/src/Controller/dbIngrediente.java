@@ -44,37 +44,29 @@ public class dbIngrediente {
         
     }
     
-    /* SELECT - Retorna uma lista com o resultado da consulta
-    public List<Ingrediente> getLista(String nomeIngrediente) throws SQLException{
+    // SELECT - Retorna uma lista com o resultado da consulta
+    public List<Ingrediente> pesquisaIngrediente() throws SQLException{
         // Prepara conexão p/ receber o comando SQL
-        String sql = "SELECT * FROM ingrediente WHERE nome like ?";
+        String sql = "SELECT * FROM ingrediente";
         PreparedStatement stmt = this.conexao.prepareStatement(sql);
-        stmt.setString(1, nomeIngrediente);
         
         // Recebe o resultado da consulta SQL
         ResultSet rs = stmt.executeQuery();
         
-        List<Cliente> lista = new ArrayList<>();
+        List<Ingrediente> lista = new ArrayList<>();
         
         // Enquanto existir registros, pega os valores do ReultSet e vai adicionando na lista
         while(rs.next()) {
             //  A cada loop, é instanciado um novo objeto, p/ servir de ponte no envio de registros p/ a lista
-            Cliente c = new Cliente();
+            Ingrediente c = new Ingrediente();
             
             // "c" -> Cliente novo - .setNome recebe o campo do banco de String "nome" 
-            c.setId(Integer.valueOf(rs.getString("id_cliente")));
-            c.setNome(rs.getString("nome"));
-            c.setDataNasc(rs.getString("data_nasc"));
-            c.setSexo(rs.getString("sexo"));
-            c.setCpf(rs.getString("cpf"));
-            c.setEndereco(rs.getString("endereco"));
-            c.setFone(rs.getString("fone"));
+            c.setId(Integer.valueOf(rs.getString("idIngrediente")));
+            c.setNome(rs.getString("nomeIngrediente"));
             
             // Adiciona o registro na lista
             lista.add(c);            
         }
-        
-        
         
         // Fecha a conexão com o BD
         rs.close();
@@ -82,7 +74,7 @@ public class dbIngrediente {
         
         // Retorna a lista de registros, gerados pela consulta
         return lista;          
-    }*/
+    }
        
     // UPDATE - Atualiza registros
     public void alteraIngrediente(Ingrediente i) throws SQLException {
