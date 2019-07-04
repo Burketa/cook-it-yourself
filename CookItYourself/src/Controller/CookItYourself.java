@@ -1,4 +1,4 @@
-package View;
+package Controller;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ public class CookItYourself extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("CadastroReceitaIngrediente.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/CadastroReceitaIngrediente.fxml"));
         primaryStage.setTitle("Cook It Yourself");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Controller;
 
+import Model.Ingrediente;
+import Model.Receita;
 import java.util.ArrayList;
 
 /**

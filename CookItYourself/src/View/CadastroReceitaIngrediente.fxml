@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CadastroReceitaIngredienteController">
+<VBox prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CadastroReceitaIngredienteController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
@@ -55,7 +55,7 @@
                                           <TableColumn prefWidth="137.0" text="Rendimento" />
                                       </columns>
                                     </TableView>
-                                    <Button fx:id="btnBuscarReceita" layoutX="849.0" layoutY="45.0" mnemonicParsing="false" onAction="#botaoBuscarIngrediente" prefHeight="35.0" prefWidth="119.0" text="Buscar">
+                                    <Button fx:id="btnBuscarReceita" layoutX="849.0" layoutY="45.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="119.0" text="Buscar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -148,22 +148,22 @@
                               </Pane>
                               <Pane layoutX="925.0" layoutY="383.0" prefHeight="358.0" prefWidth="257.0">
                                  <children>
-                                    <Button layoutX="32.0" layoutY="42.0" mnemonicParsing="false" onAction="#botaoNovoIngrediente" prefHeight="53.0" prefWidth="206.0" text="Cadastrar Nova Receita">
+                                    <Button layoutX="32.0" layoutY="42.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="206.0" text="Cadastrar Nova Receita">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="75.0" layoutY="127.0" mnemonicParsing="false" onAction="#botaoSalvarIngrediente" prefHeight="53.0" prefWidth="120.0" text="Salvar">
+                                    <Button layoutX="75.0" layoutY="127.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Salvar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="75.0" layoutY="208.0" mnemonicParsing="false" onAction="#botaoAlterarIngrediente" prefHeight="53.0" prefWidth="120.0" text="Alterar">
+                                    <Button layoutX="75.0" layoutY="208.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Alterar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="75.0" layoutY="285.0" mnemonicParsing="false" onAction="#botaoExcluirIngrediente" prefHeight="53.0" prefWidth="120.0" text="Excluir">
+                                    <Button layoutX="75.0" layoutY="285.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Excluir">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -202,7 +202,7 @@
                                           <TableColumn prefWidth="187.0" text="Estoque" />
                                       </columns>
                                     </TableView>
-                                    <Button layoutX="582.0" layoutY="45.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="119.0" text="Buscar">
+                                    <Button layoutX="582.0" layoutY="45.0" mnemonicParsing="false" onAction="#botaoBuscarIngrediente" prefHeight="35.0" prefWidth="119.0" text="Buscar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -231,17 +231,17 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField disable="true" layoutX="133.0" layoutY="78.0" prefHeight="30.0" prefWidth="306.0">
+                                    <TextField id="nomeIngrediente" disable="true" layoutX="133.0" layoutY="78.0" prefHeight="30.0" prefWidth="306.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
-                                    <TextField disable="true" layoutX="133.0" layoutY="129.0" prefHeight="25.0" prefWidth="100.0">
+                                    <TextField id="precoIngrediente" disable="true" layoutX="133.0" layoutY="129.0" prefHeight="25.0" prefWidth="100.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
-                                    <TextField disable="true" layoutX="133.0" layoutY="181.0" prefHeight="25.0" prefWidth="100.0">
+                                    <TextField id="estoqueIngrediente" disable="true" layoutX="133.0" layoutY="181.0" prefHeight="25.0" prefWidth="100.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -250,22 +250,22 @@
                               </Pane>
                               <Pane layoutX="925.0" layoutY="393.0" prefHeight="358.0" prefWidth="257.0">
                                  <children>
-                                    <Button layoutX="32.0" layoutY="42.0" mnemonicParsing="false" prefHeight="53.0" text="Cadastrar Novo Ingrediente">
+                                    <Button layoutX="32.0" layoutY="42.0" mnemonicParsing="false" onAction="#botaoNovoIngrediente" prefHeight="53.0" text="Cadastrar Novo Ingrediente">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="81.0" layoutY="208.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Alterar">
+                                    <Button layoutX="81.0" layoutY="208.0" mnemonicParsing="false" onAction="#botaoAlterarIngrediente" prefHeight="53.0" prefWidth="120.0" text="Alterar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="81.0" layoutY="127.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Salvar">
+                                    <Button layoutX="81.0" layoutY="127.0" mnemonicParsing="false" onAction="#botaoSalvarIngrediente" prefHeight="53.0" prefWidth="120.0" text="Salvar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="81.0" layoutY="285.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Excluir">
+                                    <Button layoutX="81.0" layoutY="285.0" mnemonicParsing="false" onAction="#botaoExcluirIngrediente" prefHeight="53.0" prefWidth="120.0" text="Excluir">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -276,6 +276,19 @@
                         </AnchorPane>
                   </content>
                 </Tab>
+                  <Tab text="Usuário">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="244.0" layoutY="265.0" mnemonicParsing="false" onAction="#botaoFiltro" prefHeight="310.0" prefWidth="654.0" text="Iniciar Filtro" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="59.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
               </tabs>
             </TabPane>
       </children>

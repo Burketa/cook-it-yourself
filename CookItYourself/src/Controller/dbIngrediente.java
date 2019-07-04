@@ -27,7 +27,7 @@ public class dbIngrediente {
         // Prepara conexão p/ receber o comando SQL
         String sql = "INSERT INTO ingrediente (nomeIngrediente, precoIngrediente, estoqueIngrediente)"
                 + "VALUES(?, ?, ?)";   
-        
+         
         PreparedStatement stmt;
         
         // stmt recebe o comando SQL
