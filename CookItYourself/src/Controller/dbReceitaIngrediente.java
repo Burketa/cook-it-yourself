@@ -21,12 +21,11 @@ public class dbReceitaIngrediente {
         this.conexao = Conexao.getConexao();
     }
     
-    // CREATE - Adiciona um registro
+    // INSERT - Adiciona um registro
     public void adicionaIngrediente(ReceitaIngrediente i) throws SQLException {
         
         // Prepara conexão p/ receber o comando SQL
-        String sql = "INSERT INTO ingrediente (nomeIngrediente, precoIngrediente, estoqueIngrediente)"
-                + "VALUES(?, ?, ?)"; 
+        String sql = "INSERT INTO receitaingrediente (nomeIngrediente, precoIngrediente, estoqueIngrediente)" + "VALUES(?, ?, ?)"; 
         
         PreparedStatement stmt;
         

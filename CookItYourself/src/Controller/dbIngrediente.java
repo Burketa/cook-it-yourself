@@ -21,12 +21,11 @@ public class dbIngrediente {
         this.conexao = Conexao.getConexao();
     }
     
-    // CREATE - Adiciona um registro
+    // INSERT - Adiciona um novo registro
     public void adicionaIngrediente(Ingrediente i) throws SQLException {
         
         // Prepara conexão p/ receber o comando SQL
-        String sql = "INSERT INTO ingrediente (nomeIngrediente, precoIngrediente, estoqueIngrediente)"
-                + "VALUES(?, ?, ?)";   
+        String sql = "INSERT INTO ingrediente (nomeIngrediente, precoIngrediente, estoqueIngrediente)" + "VALUES(?, ?, ?)";   
         
         PreparedStatement stmt;
         
@@ -74,8 +73,6 @@ public class dbIngrediente {
             lista.add(c);            
         }
         
-        
-        
         // Fecha a conexão com o BD
         rs.close();
         stmt.close();
@@ -84,11 +81,11 @@ public class dbIngrediente {
         return lista;          
     }*/
        
-    // UPDATE - Atualiza registros
+    // UPDATE - Atualiza um registro
     public void alteraIngrediente(Ingrediente i) throws SQLException {
         // Prepara conexão p/ receber o comando SQL
-        String sql = "UPDATE ingrediente set nomeIngrediente = ?, precoIngrediente = ?, estoqueIngrediente = ?"
-                + "WHERE idIngrediente = ?";
+        String sql = "UPDATE ingrediente set nomeIngrediente = ?, precoIngrediente = ?, estoqueIngrediente = ?" + "WHERE idIngrediente = ?";
+        
         // stmt recebe o comando SQL
         PreparedStatement stmt = this.conexao.prepareStatement(sql);
         
@@ -106,7 +103,7 @@ public class dbIngrediente {
     public void removeIngrediente(int idIngrediente) throws SQLException {
         
         // Prepara conexão p/ receber o comando SQL
-        String sql = "DELETE FROM Ingrediente WHERE idIngrediente = ?";
+        String sql = "DELETE FROM ingrediente WHERE idIngrediente = ?";
         
         // stmt recebe o comando SQL
         PreparedStatement stmt = this.conexao.prepareStatement(sql);
@@ -116,7 +113,6 @@ public class dbIngrediente {
         
         // Executa o codigo SQL, e fecha
         stmt.execute();
-        stmt.close();
-        
+        stmt.close(); 
     }   
 }

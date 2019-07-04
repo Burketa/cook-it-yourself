@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.CadastroReceitaIngredienteController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
@@ -26,7 +26,7 @@
         </Label>
             <TabPane prefHeight="800.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab text="Receitas">
+                <Tab fx:id="tabReceitas" text="Receitas">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -47,7 +47,7 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TableView layoutX="90.0" layoutY="95.0" prefHeight="230.0" prefWidth="880.0">
+                                    <TableView fx:id="tblExibeReceita" layoutX="90.0" layoutY="95.0" prefHeight="230.0" prefWidth="880.0">
                                       <columns>
                                         <TableColumn prefWidth="218.0" text="Nome Receita" />
                                         <TableColumn prefWidth="388.0" text="Modo Preparo" />
@@ -120,14 +120,14 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <ListView layoutX="548.0" layoutY="224.0" prefHeight="184.0" prefWidth="248.0" />
+                                    <ListView fx:id="lstListaIngrediente" layoutX="548.0" layoutY="224.0" prefHeight="184.0" prefWidth="248.0" />
                                     <ComboBox fx:id="cmbMedida" layoutX="655.0" layoutY="184.0" prefWidth="150.0" />
-                                    <Button disable="true" layoutX="821.0" layoutY="146.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="48.0" text="+">
+                                    <Button fx:id="btnAdicionarIngrediente" disable="true" layoutX="821.0" layoutY="146.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="48.0" text="+">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
                                     </Button>
-                                    <Button disable="true" layoutX="821.0" layoutY="363.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="48.0" text="-">
+                                    <Button fx:id="btnExcluirIngrediente" disable="true" layoutX="821.0" layoutY="363.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="48.0" text="-">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
@@ -137,8 +137,8 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox layoutX="655.0" layoutY="82.0" prefWidth="150.0" />
-                                    <ComboBox layoutX="168.0" layoutY="373.0" prefWidth="150.0" />
+                                    <ComboBox fx:id="cmbTipica" layoutX="655.0" layoutY="82.0" prefWidth="150.0" />
+                                    <ComboBox fx:id="cmbCategoria" layoutX="168.0" layoutY="373.0" prefWidth="150.0" />
                                     <Label layoutX="57.0" layoutY="375.0" text="Categoria:">
                                        <font>
                                           <Font size="14.0" />
@@ -148,22 +148,22 @@
                               </Pane>
                               <Pane layoutX="925.0" layoutY="383.0" prefHeight="358.0" prefWidth="257.0">
                                  <children>
-                                    <Button layoutX="32.0" layoutY="42.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="206.0" text="Cadastrar Nova Receita">
+                                    <Button fx:id="btnCadastraNovaReceita" layoutX="32.0" layoutY="42.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="206.0" text="Cadastrar Nova Receita">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="75.0" layoutY="127.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Salvar">
+                                    <Button fx:id="btnSalvarReceita" layoutX="75.0" layoutY="127.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Salvar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="75.0" layoutY="208.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Alterar">
+                                    <Button fx:id="btnAlterarReceita" layoutX="75.0" layoutY="208.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Alterar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="75.0" layoutY="285.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Excluir">
+                                    <Button fx:id="btnExcluirReceita" layoutX="75.0" layoutY="285.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Excluir">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -174,7 +174,7 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                <Tab text="Ingredientes">
+                <Tab fx:id="tabIngredientes" text="Ingredientes">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -190,7 +190,7 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField layoutX="148.0" layoutY="48.0" prefHeight="30.0" prefWidth="409.0">
+                                    <TextField fx:id="txtBuscarIngrediente" layoutX="148.0" layoutY="48.0" prefHeight="30.0" prefWidth="409.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -202,7 +202,7 @@
                                           <TableColumn prefWidth="187.0" text="Estoque" />
                                       </columns>
                                     </TableView>
-                                    <Button layoutX="582.0" layoutY="45.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="119.0" text="Buscar">
+                                    <Button fx:id="btnBuscarIngrediente" layoutX="582.0" layoutY="45.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="119.0" text="Buscar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -231,17 +231,17 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField disable="true" layoutX="133.0" layoutY="78.0" prefHeight="30.0" prefWidth="306.0">
+                                    <TextField fx:id="txtNomeIngrediente" disable="true" layoutX="133.0" layoutY="78.0" prefHeight="30.0" prefWidth="306.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
-                                    <TextField disable="true" layoutX="133.0" layoutY="129.0" prefHeight="25.0" prefWidth="100.0">
+                                    <TextField fx:id="txtPreco" disable="true" layoutX="133.0" layoutY="129.0" prefHeight="25.0" prefWidth="100.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
-                                    <TextField disable="true" layoutX="133.0" layoutY="181.0" prefHeight="25.0" prefWidth="100.0">
+                                    <TextField fx:id="txtEstoque" disable="true" layoutX="133.0" layoutY="181.0" prefHeight="25.0" prefWidth="100.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -250,22 +250,22 @@
                               </Pane>
                               <Pane layoutX="925.0" layoutY="393.0" prefHeight="358.0" prefWidth="257.0">
                                  <children>
-                                    <Button layoutX="32.0" layoutY="42.0" mnemonicParsing="false" prefHeight="53.0" text="Cadastrar Novo Ingrediente">
+                                    <Button fx:id="btnCadastrarNovoIngrediente" layoutX="32.0" layoutY="42.0" mnemonicParsing="false" prefHeight="53.0" text="Cadastrar Novo Ingrediente">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="81.0" layoutY="208.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Alterar">
+                                    <Button fx:id="btnAlterarIngrediente" layoutX="81.0" layoutY="208.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Alterar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="81.0" layoutY="127.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Salvar">
+                                    <Button fx:id="btnSalvarIngrediente" layoutX="81.0" layoutY="127.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Salvar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="81.0" layoutY="285.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Excluir">
+                                    <Button fx:id="btnExcluirIngrediente" layoutX="81.0" layoutY="285.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="120.0" text="Excluir">
                                        <font>
                                           <Font size="16.0" />
                                        </font>

@@ -24,8 +24,8 @@ public class dbReceita {
     // INSERT - Adiciona uma receita no banco
     public void adicionaReceita(Receita r) throws SQLException {
         // Prepara conexão p/ receber o comando SQL
-        String sql = "INSERT INTO receita (nomeReceita, preparoReceita, tempoReceita, rendimentoReceita, idCategoria, idTipica)"
-                + "VALUES(?, ?, ?, ?, ?, ?)";       
+        String sql = "INSERT INTO receita (nomeReceita, preparoReceita, tempoReceita, rendimentoReceita, idCategoria, idTipica)" + "VALUES(?, ?, ?, ?, ?, ?)";       
+        
         PreparedStatement stmt;
         // stmt recebe o comando SQL
         stmt = this.conexao.prepareStatement(sql);
