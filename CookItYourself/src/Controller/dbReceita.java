@@ -34,9 +34,9 @@ public class dbReceita {
         stmt.setString(1, r.getNomeReceita());
         stmt.setString(2, r.getPreparoReceita());
         stmt.setString(3, r.getTempoReceita());
-        stmt.setString(4, r.getRendimentoReceita());
-        stmt.setString(5, r.getIdCategoria());
-        stmt.setString(6, r.getIdTipica());
+        stmt.setString(4, String.valueOf(r.getRendimentoReceita()));
+        stmt.setString(5, String.valueOf(r.getIdCategoria()));
+        stmt.setString(6, String.valueOf(r.getIdTipica()));
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();
