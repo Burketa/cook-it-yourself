@@ -51,5 +51,16 @@ public class ReceitaIngrediente {
    public void setQuantidade(float quantidade) {
         this.quantidade = quantidade;
    }
- 
+   
+   public String getNomeIngrediente() {
+        return Integer.toString(idIngrediente);
+   }
+
+   public String getPrecoIngrediente() {
+        return Integer.toString(idIngrediente);
+   }
+   
+   public String getEstoqueIngrediente() {
+        return Integer.toString(idIngrediente);
+   }
 }
