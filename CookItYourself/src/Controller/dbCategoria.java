@@ -84,7 +84,7 @@ public class dbCategoria {
         PreparedStatement stmt = this.conexao.prepareStatement(sql);
         
         // Seta os valores p/ o stmt, substituindo os "?"
-        stmt.setInt(1, c.getNomeCategoria());        
+        stmt.setString(1, c.getNomeCategoria());        
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();
