@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="CookItYourself">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/CookItYourself.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

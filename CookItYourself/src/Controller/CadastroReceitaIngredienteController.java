@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Ingrediente;
+import utils.Utils;
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 public class CadastroReceitaIngredienteController {
 
@@ -50,16 +52,37 @@ public class CadastroReceitaIngredienteController {
 
     @FXML
     private void botaoSalvarIngrediente(javafx.event.ActionEvent event) throws SQLException {
-        System.out.println("click Salvar");
+        System.out.println("Click Salvar");
+
+        String nomeIngredienteString = nomeIngrediente.getText();
+        String precoIngredienteString = precoIngrediente.getText();
+        String estoqueIngredienteString = estoqueIngrediente.getText();
 
         dbIngrediente db = new dbIngrediente();
         Ingrediente ingrediente = new Ingrediente();
 
-        ingrediente.setNome(nomeIngrediente.getText());
-        ingrediente.setPreco(Float.parseFloat(precoIngrediente.getText()));
-        ingrediente.setEstoque(Integer.parseInt(estoqueIngrediente.getText()));
+        boolean camposPreenchidos = Utils.ingredienteCamposPreenchidos(nomeIngredienteString, precoIngredienteString, estoqueIngredienteString);
 
-        db.adicionaIngrediente(ingrediente);
+        if (camposPreenchidos) {
+            ingrediente.setNome(nomeIngredienteString);
+            
+            if (Utils.isFloat(precoIngredienteString)) {
+                ingrediente.setPreco(Float.parseFloat(precoIngredienteString));
+            } else {
+                JOptionPane.showMessageDialog(null, "Preço não é valido (numero real ou inteiro).");
+            }
+            
+            if (Utils.isInteger(estoqueIngredienteString)) {
+                ingrediente.setEstoque(Integer.parseInt(estoqueIngredienteString));
+            } else {
+                JOptionPane.showMessageDialog(null, "Estoque não é numero inteiro.");
+            }
+
+            db.adicionaIngrediente(ingrediente);
+            System.out.println("Ingrediente Adicionado: " + ingrediente.toString());
+        } else {
+            JOptionPane.showMessageDialog(null, "Campos não preenchidos.");
+        }
     }
 
     @FXML
