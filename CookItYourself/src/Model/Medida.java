@@ -5,10 +5,13 @@
  */
 package Model;
 
-public class Categoria {
-    
+/**
+ *
+ * @author Burca
+ */
+public class Medida {
     private int id;
-    private String nome;
+    private String tipo;
     
     public int getId()
     {
@@ -20,19 +23,18 @@ public class Categoria {
         this.id = id;
     }
     
-    public String getNome()
+    public String getTipo()
     {
-        return nome;
+        return tipo;
     }
     
-    public void setNome(String nome)
+    public void setTipo(String nome)
     {
-        this.nome = nome;
+        this.tipo = nome;
     }
     
     @Override
-    public String toString()
-    {
-        return "" + getId() + " - " + getNome();
+    public String toString() {
+        return getTipo();
     }
 }

@@ -4,9 +4,13 @@
  */
 package Controller;
 
+import Model.Medida;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class dbMedida {
     //Conexão com o banco
@@ -16,41 +20,35 @@ public class dbMedida {
         this.conexao = Conexao.getConexao();
     }
     
-    /* SELECT - Retorna uma lista com o resultado da consulta
-    public List<Receita> getLista(String nomeReceita) throws SQLException{
+    //SELECT - Retorna uma lista com o resultado da consulta
+    public List<Medida> recuperarMedidas(String nomeReceita) throws SQLException{
         // Prepara conexão p/ receber o comando SQL
-        String sql = "SELECT * FROM cliente WHERE nome like ?";
-        PreparedStatement stmt = this.conexao.prepareStatement(sql);
-        stmt.setString(1, nome);
+        String sql = "SELECT * FROM medida";
+        PreparedStatement preparedStatement = this.conexao.prepareStatement(sql);
         
         // Recebe o resultado da consulta SQL
-        ResultSet rs = stmt.executeQuery();
+        ResultSet resultSet = preparedStatement.executeQuery();
         
-        List<Receita> lista = new ArrayList<>();
+        List<Medida> lista = new ArrayList<>();
         
         // Enquanto existir registros, pega os valores do ReultSet e vai adicionando na lista
-        while(rs.next()) {
+        while(resultSet.next()) {
             //  A cada loop, é instanciado um novo objeto, p/ servir de ponte no envio de registros p/ a lista
-            Receita r = new Receita();
+            Medida medida = new Medida();
             
-            // "c" -> Cliente novo - .setNome recebe o campo do banco de String "nome" 
-            r.setId(Integer.valueOf(rs.getString("id_cliente")));
-            r.setNome(rs.getString("nome"));
-            r.setDataNasc(rs.getString("data_nasc"));
-            r.setSexo(rs.getString("sexo"));
-            r.setCpf(rs.getString("cpf"));
-            r.setEndereco(rs.getString("endereco"));
-            r.setFone(rs.getString("fone"));
+            // "medida" -> Medida nova - .setNome recebe o campo do banco de String "nome"...
+            medida.setId(Integer.valueOf(resultSet.getString("idMedida")));
+            medida.setTipo(resultSet.getString("tipoMedida"));
             
             // Adiciona o registro na lista
-            lista.add(r);            
+            lista.add(medida);            
         }
         
         // Fecha a conexão com o BD
-        rs.close();
-        stmt.close();
+        resultSet.close();
+        preparedStatement.close();
         
         // Retorna a lista de registros, gerados pela consulta
         return lista;          
-    }*/
+    }
 }

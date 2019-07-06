@@ -5,7 +5,7 @@
  */
 package Model;
 
-public class Categoria {
+public class Tipica {
     
     private int id;
     private String nome;

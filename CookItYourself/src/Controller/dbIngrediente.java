@@ -45,7 +45,7 @@ public class dbIngrediente {
     }
 
     // SELECT - Retorna uma lista com o resultado da consulta
-    public List<Ingrediente> recuperaIngrediente(String string) throws SQLException {
+    public List<Ingrediente> recuperaIngredientes(String string) throws SQLException {
         // Prepara conexão p/ receber o comando SQL
         String sql = "";
         PreparedStatement preparedStatement = null;

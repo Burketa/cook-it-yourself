@@ -29,9 +29,9 @@ public class Utils {
         }
     }
     
-    public static boolean ingredienteCamposPreenchidos(String nome, String preco, String estoque)
+    public static boolean ingredienteCamposPreenchidos(String nome, String preco, String estoque, String medida)
     {
-        if((!nome.equals("")) && (!preco.equals("")) && (!estoque.equals("")))
+        if((!nome.equals("")) && (!preco.equals("")) && (!estoque.equals("")) && (!medida.equals("")))
             return true;
         else
             return false;

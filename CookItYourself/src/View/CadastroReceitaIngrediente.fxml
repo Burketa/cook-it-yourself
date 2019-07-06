@@ -47,11 +47,13 @@
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
-                                    <TableView fx:id="tabelaIngrediente" layoutX="90.0" layoutY="95.0" prefHeight="230.0" prefWidth="614.0">
+                                    <TableView fx:id="tabelaIngrediente" layoutX="90.0" layoutY="95.0" onMouseClicked="#clickIngrediente" prefHeight="230.0" prefWidth="612.0">
                                       <columns>
-                                        <TableColumn fx:id="nomeIngredienteColuna" prefWidth="229.0" text="Nome Ingrediente" />
-                                        <TableColumn fx:id="precoIngredienteColuna" prefWidth="197.0" text="Preço Ingrediente" />
-                                          <TableColumn fx:id="estoqueIngredienteColuna" prefWidth="187.0" text="Estoque" />
+                                          <TableColumn fx:id="idIngredienteColuna" prefWidth="43.20001220703125" text="ID" />
+                                        <TableColumn fx:id="nomeIngredienteColuna" prefWidth="151.19993591308594" text="Nome Ingrediente" />
+                                        <TableColumn fx:id="precoIngredienteColuna" prefWidth="162.39996337890625" text="Preço Ingrediente" />
+                                          <TableColumn fx:id="estoqueIngredienteColuna" minWidth="7.99993896484375" prefWidth="104.800048828125" text="Estoque" />
+                                          <TableColumn fx:id="medidaIngredienteColuna" prefWidth="148.00006103515625" text="Medida" />
                                       </columns>
                                     </TableView>
                                     <Button layoutX="582.0" layoutY="45.0" mnemonicParsing="false" onAction="#botaoRecuperarIngrediente" prefHeight="35.0" prefWidth="119.0" text="Buscar">
@@ -59,7 +61,6 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <ListView fx:id="listViewIngrediente" layoutX="717.0" layoutY="98.0" onMouseClicked="#clickIngrediente" prefHeight="224.0" prefWidth="382.0" />
                                  </children>
                               </Pane>
                               <Pane layoutX="58.0" layoutY="359.0" prefHeight="389.0" prefWidth="884.0">
@@ -89,26 +90,32 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField id="nomeIngrediente" fx:id="idIngrediente" disable="true" layoutX="143.0" layoutY="88.0" prefHeight="30.0" prefWidth="64.0">
+                                    <TextField id="nomeIngrediente" fx:id="idIngrediente" disable="true" layoutX="175.0" layoutY="88.0" prefHeight="30.0" prefWidth="64.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
-                                    <TextField id="nomeIngrediente" fx:id="nomeIngrediente" layoutX="143.0" layoutY="142.0" prefHeight="30.0" prefWidth="306.0">
+                                    <TextField id="nomeIngrediente" fx:id="nomeIngrediente" layoutX="175.0" layoutY="142.0" prefHeight="30.0" prefWidth="306.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
-                                    <TextField id="precoIngrediente" fx:id="precoIngrediente" layoutX="143.0" layoutY="193.0" prefHeight="25.0" prefWidth="100.0">
+                                    <TextField id="precoIngrediente" fx:id="precoIngrediente" layoutX="175.0" layoutY="193.0" prefHeight="25.0" prefWidth="100.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
-                                    <TextField id="estoqueIngrediente" fx:id="estoqueIngrediente" layoutX="143.0" layoutY="245.0" prefHeight="25.0" prefWidth="100.0">
+                                    <TextField id="estoqueIngrediente" fx:id="estoqueIngrediente" layoutX="175.0" layoutY="245.0" prefHeight="25.0" prefWidth="100.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
+                                    <Label layoutX="67.0" layoutY="305.0" text="Medida:">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox fx:id="medidaIngrediente" layoutX="175.0" layoutY="303.0" prefWidth="150.0" />
                                  </children>
                               </Pane>
                               <Pane layoutX="925.0" layoutY="393.0" prefHeight="358.0" prefWidth="257.0">
@@ -155,12 +162,13 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <TableView id="tabela" fx:id="tabela" layoutX="90.0" layoutY="95.0" prefHeight="230.0" prefWidth="427.0">
+                                    <TableView id="tabela" fx:id="tabelaReceita" layoutX="90.0" layoutY="95.0" onMouseClicked="#clickReceita" prefHeight="224.0" prefWidth="881.0">
                                       <columns>
-                                        <TableColumn prefWidth="218.0" text="Nome Receita" />
-                                        <TableColumn prefWidth="388.0" text="Modo Preparo" />
-                                          <TableColumn prefWidth="136.0" text="Tempo Preparo" />
-                                          <TableColumn prefWidth="137.0" text="Rendimento" />
+                                          <TableColumn fx:id="idReceitaColuna" prefWidth="60.00006103515625" text="ID" />
+                                        <TableColumn fx:id="nomeReceitaColuna" prefWidth="225.59996032714844" text="Nome Receita" />
+                                        <TableColumn fx:id="preparoReceitaColuna" prefWidth="345.60009765625" text="Modo Preparo" />
+                                          <TableColumn fx:id="tempoReceitaColuna" prefWidth="145.599853515625" text="Tempo Preparo" />
+                                          <TableColumn fx:id="rendimentoReceitaColuna" prefWidth="101.79998779296875" text="Rendimento" />
                                       </columns>
                                     </TableView>
                                     <Button fx:id="btnBuscarReceita" layoutX="849.0" layoutY="45.0" mnemonicParsing="false" onAction="#botaoRecuperarReceita" prefHeight="35.0" prefWidth="119.0" text="Buscar">
@@ -168,7 +176,6 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <ListView fx:id="listViewReceita" layoutX="586.0" layoutY="98.0" onMouseClicked="#clickReceita" prefHeight="224.0" prefWidth="382.0" />
                                  </children>
                               </Pane>
                               <Pane layoutX="58.0" layoutY="347.0" prefHeight="415.0" prefWidth="884.0">
@@ -223,14 +230,13 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="cmbIngrediente" layoutX="655.0" layoutY="133.0" prefWidth="150.0" />
-                                    <Label layoutX="547.0" layoutY="186.0" text="Medida:">
+                                    <ComboBox fx:id="ingredienteReceita" layoutX="655.0" layoutY="133.0" prefWidth="150.0" />
+                                    <Label layoutX="547.0" layoutY="186.0" text="Quantidade:">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
                                     <ListView layoutX="548.0" layoutY="224.0" prefHeight="184.0" prefWidth="248.0" />
-                                    <ComboBox fx:id="cmbMedida" layoutX="655.0" layoutY="184.0" prefWidth="150.0" />
                                     <Button disable="true" layoutX="821.0" layoutY="146.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="48.0" text="+">
                                        <font>
                                           <Font size="20.0" />
@@ -246,8 +252,8 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox layoutX="655.0" layoutY="82.0" prefWidth="150.0" />
-                                    <ComboBox layoutX="168.0" layoutY="373.0" prefWidth="150.0" />
+                                    <ComboBox fx:id="tipicaReceita" layoutX="655.0" layoutY="82.0" prefWidth="150.0" />
+                                    <ComboBox fx:id="categoriaReceita" layoutX="168.0" layoutY="373.0" prefWidth="150.0" />
                                     <Label layoutX="57.0" layoutY="375.0" text="Categoria:">
                                        <font>
                                           <Font size="14.0" />
@@ -259,6 +265,11 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="idReceita" disable="true" layoutX="168.0" layoutY="63.0" prefHeight="30.0" prefWidth="66.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="quantidadeReceita" layoutX="655.0" layoutY="181.0" prefHeight="30.0" prefWidth="151.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>

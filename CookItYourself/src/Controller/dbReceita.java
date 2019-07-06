@@ -32,10 +32,10 @@ public class dbReceita {
         preparedStatement = this.conexao.prepareStatement(sql);
 
         // Seta os valores p/ o preparedStatement, substituindo os "?"
-        preparedStatement.setString(1, receita.getNomeReceita());
-        preparedStatement.setString(2, receita.getPreparoReceita());
-        preparedStatement.setString(3, receita.getTempoReceita());
-        preparedStatement.setInt(4, receita.getRendimentoReceita());
+        preparedStatement.setString(1, receita.getNome());
+        preparedStatement.setString(2, receita.getPreparo());
+        preparedStatement.setString(3, receita.getTempo());
+        preparedStatement.setInt(4, receita.getRendimento());
         //preparedStatement.setInt(5, receita.getIdCategoria());
         //preparedStatement.setInt(6, receita.getIdTipica());
         //TODO: Colocar certo as coisas
@@ -73,13 +73,13 @@ public class dbReceita {
             Receita receita = new Receita();
 
             // "receita" -> Receita nova - .setNome recebe o campo do banco de String "nome"...
-            receita.setIdReceita(Integer.valueOf(resultSet.getString("idReceita")));
-            receita.setNomeReceita(resultSet.getString("nomeReceita"));
-            receita.setPreparoReceita(resultSet.getString("preparoReceita"));
+            receita.setId(Integer.valueOf(resultSet.getString("idReceita")));
+            receita.setNome(resultSet.getString("nomeReceita"));
+            receita.setPreparo(resultSet.getString("preparoReceita"));
             receita.setIdCategoria(Integer.parseInt(resultSet.getString("idCategoria")));
             receita.setIdTipica(Integer.parseInt(resultSet.getString("idTipica")));
-            receita.setRendimentoReceita(Integer.parseInt(resultSet.getString("rendimentoReceita")));
-            receita.setTempoReceita(resultSet.getString("tempoReceita"));
+            receita.setRendimento(Integer.parseInt(resultSet.getString("rendimentoReceita")));
+            receita.setTempo(resultSet.getString("tempoReceita"));
 
             // Adiciona o registro na lista
             lista.add(receita);
@@ -104,13 +104,13 @@ public class dbReceita {
         PreparedStatement preparedStatement = this.conexao.prepareStatement(sql);
 
         // Seta os valores p/ o preparedStatement, substituindo os "?"
-        preparedStatement.setString(1, receita.getNomeReceita());
-        preparedStatement.setString(2, receita.getPreparoReceita());
-        preparedStatement.setString(3, receita.getTempoReceita());
-        preparedStatement.setInt(4, receita.getRendimentoReceita());
+        preparedStatement.setString(1, receita.getNome());
+        preparedStatement.setString(2, receita.getPreparo());
+        preparedStatement.setString(3, receita.getTempo());
+        preparedStatement.setInt(4, receita.getRendimento());
        // preparedStatement.setInt(5, receita.getIdCategoria());
         // preparedStatement.setInt(6, receita.getIdTipica());
-        preparedStatement.setInt(5, receita.getIdReceita());
+        preparedStatement.setInt(5, receita.getId());
 
         // O preparedStatement executa o comando SQL no BD, e fecha a conexão
         preparedStatement.execute();

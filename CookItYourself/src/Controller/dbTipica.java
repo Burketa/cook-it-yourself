@@ -4,9 +4,14 @@
  */
 package Controller;
 
+import Model.Tipica;
+import Model.Categoria;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 //import Model.Tipica;
 
 public class dbTipica {
@@ -17,41 +22,34 @@ public class dbTipica {
         this.conexao = Conexao.getConexao();
     }
     
-    /* SELECT - Retorna uma lista com o resultado da consulta
-    public List<Receita> getLista(String nomeReceita) throws SQLException{
+    //SELECT - Retorna uma lista com o resultado da consulta
+    public List<Tipica> recuperarTipicas() throws SQLException{
         // Prepara conexão p/ receber o comando SQL
-        String sql = "SELECT * FROM cliente WHERE nome like ?";
-        PreparedStatement stmt = this.conexao.prepareStatement(sql);
-        stmt.setString(1, nome);
+        String sql = "SELECT * FROM tipica";
+        PreparedStatement preparedStatement = this.conexao.prepareStatement(sql);
         
         // Recebe o resultado da consulta SQL
-        ResultSet rs = stmt.executeQuery();
+        ResultSet resultSet = preparedStatement.executeQuery();
         
-        List<Receita> lista = new ArrayList<>();
+        List<Tipica> lista = new ArrayList<>();
         
         // Enquanto existir registros, pega os valores do ReultSet e vai adicionando na lista
-        while(rs.next()) {
+        while(resultSet.next()) {
             //  A cada loop, é instanciado um novo objeto, p/ servir de ponte no envio de registros p/ a lista
-            Receita r = new Receita();
+            Tipica tipica = new Tipica();
             
-            // "c" -> Cliente novo - .setNome recebe o campo do banco de String "nome" 
-            r.setId(Integer.valueOf(rs.getString("id_cliente")));
-            r.setNome(rs.getString("nome"));
-            r.setDataNasc(rs.getString("data_nasc"));
-            r.setSexo(rs.getString("sexo"));
-            r.setCpf(rs.getString("cpf"));
-            r.setEndereco(rs.getString("endereco"));
-            r.setFone(rs.getString("fone"));
+            tipica.setId(Integer.parseInt(resultSet.getString("idTipica")));
+            tipica.setNome(resultSet.getString("nomeTipica"));
             
             // Adiciona o registro na lista
-            lista.add(r);            
+            lista.add(tipica);            
         }
         
         // Fecha a conexão com o BD
-        rs.close();
-        stmt.close();
+        resultSet.close();
+        preparedStatement.close();
         
         // Retorna a lista de registros, gerados pela consulta
         return lista;          
-    }*/
+    }
 }

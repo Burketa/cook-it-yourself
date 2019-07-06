@@ -7,22 +7,22 @@ import java.util.ArrayList;
  * @author Aluno
  */
 public class Receita {
-    private int idReceita;
-    private String nomeReceita;
-    private String preparoReceita;
-    private String tempoReceita;
-    private int rendimentoReceita;
+    private int id;
+    private String nome;
+    private String preparo;
+    private String tempo;
+    private int rendimento;
     private int idCategoria;
     private int idTipica;
    
     private ArrayList<Ingrediente> ingredientes;
     
    public Receita(int idReceita, String nomeReceita, String preparoReceita, String tempoReceita, int rendimentoReceita, int idCategoria, int idTipica){ 
-       this.idReceita = idReceita;
-       this.nomeReceita = nomeReceita;
-       this.preparoReceita = preparoReceita;
-       this.tempoReceita = tempoReceita;
-       this.rendimentoReceita = rendimentoReceita;
+       this.id = idReceita;
+       this.nome = nomeReceita;
+       this.preparo = preparoReceita;
+       this.tempo = tempoReceita;
+       this.rendimento = rendimentoReceita;
        this.idCategoria = idCategoria;
        this.idTipica = idTipica;
    }
@@ -30,44 +30,44 @@ public class Receita {
    public Receita(){
    }
    
-   public int getIdReceita() {
-        return idReceita;
+   public int getId() {
+        return id;
    }
    
-   public void setIdReceita(int idReceita) {
-        this.idReceita = idReceita;
+   public void setId(int idReceita) {
+        this.id = idReceita;
    }
    
-   public String getNomeReceita() {
-        return nomeReceita;
+   public String getNome() {
+        return nome;
    }
    
-   public void setNomeReceita(String nomeReceita) {
-        this.nomeReceita = nomeReceita;
+   public void setNome(String nomeReceita) {
+        this.nome = nomeReceita;
    }
    
-   public String getPreparoReceita() {
-        return preparoReceita;
+   public String getPreparo() {
+        return preparo;
    }
    
-   public void setPreparoReceita(String preparoReceita) {
-        this.preparoReceita = preparoReceita;
+   public void setPreparo(String preparoReceita) {
+        this.preparo = preparoReceita;
    }
    
-   public String getTempoReceita() {
-        return tempoReceita;
+   public String getTempo() {
+        return tempo;
    }
    
-   public void setTempoReceita(String tempoReceita) {
-        this.tempoReceita = tempoReceita;
+   public void setTempo(String tempoReceita) {
+        this.tempo = tempoReceita;
    }
    
-   public int getRendimentoReceita() {
-        return rendimentoReceita;
+   public int getRendimento() {
+        return rendimento;
    }
    
-   public void setRendimentoReceita(int rendimentoReceita) {
-        this.rendimentoReceita = rendimentoReceita;
+   public void setRendimento(int rendimentoReceita) {
+        this.rendimento = rendimentoReceita;
    }
    
    public int getIdCategoria() {
@@ -89,7 +89,7 @@ public class Receita {
    @Override
    public String toString()
    {
-       return getNomeReceita();
+       return getNome();
    }
 }
 
