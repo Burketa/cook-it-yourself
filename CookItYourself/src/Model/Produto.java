@@ -39,7 +39,7 @@ public class Produto {
     public void setPreco(float preco) {
         this.preco = preco;
     }
-    
+
     public int getEstoque() {
         return estoque;
     }
@@ -47,12 +47,13 @@ public class Produto {
     public void setEstoque(int estoque) {
         this.estoque = estoque;
     }
+
     public int isEmEstoque() {
         return 1;
     }
-    
+
     @Override
     public String toString() {
-        return nome;
+        return "ID: " + getId() + " Nome: " + getNome() + " Preço: " + getPreco() + " Estoque: " + getEstoque();
     }
 }

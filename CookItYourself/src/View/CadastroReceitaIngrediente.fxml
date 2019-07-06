@@ -47,18 +47,19 @@
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
-                                    <TableView layoutX="90.0" layoutY="95.0" prefHeight="230.0" prefWidth="614.0">
+                                    <TableView fx:id="tabelaIngrediente" layoutX="90.0" layoutY="95.0" prefHeight="230.0" prefWidth="614.0">
                                       <columns>
-                                        <TableColumn prefWidth="229.0" text="Nome Ingrediente" />
-                                        <TableColumn prefWidth="197.0" text="Preço Ingrediente" />
-                                          <TableColumn prefWidth="187.0" text="Estoque" />
+                                        <TableColumn fx:id="nomeIngredienteColuna" prefWidth="229.0" text="Nome Ingrediente" />
+                                        <TableColumn fx:id="precoIngredienteColuna" prefWidth="197.0" text="Preço Ingrediente" />
+                                          <TableColumn fx:id="estoqueIngredienteColuna" prefWidth="187.0" text="Estoque" />
                                       </columns>
                                     </TableView>
-                                    <Button layoutX="582.0" layoutY="45.0" mnemonicParsing="false" onAction="#botaoBuscarIngrediente" prefHeight="35.0" prefWidth="119.0" text="Buscar">
+                                    <Button layoutX="582.0" layoutY="45.0" mnemonicParsing="false" onAction="#botaoRecuperarIngrediente" prefHeight="35.0" prefWidth="119.0" text="Buscar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
+                                    <ListView fx:id="listView" layoutX="744.0" layoutY="110.0" prefHeight="200.0" prefWidth="200.0" />
                                  </children>
                               </Pane>
                               <Pane layoutX="58.0" layoutY="359.0" prefHeight="389.0" prefWidth="884.0">
@@ -107,12 +108,12 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="81.0" layoutY="127.0" mnemonicParsing="false" onAction="#botaoSalvarIngrediente" prefHeight="53.0" prefWidth="120.0" text="Salvar">
+                                    <Button layoutX="81.0" layoutY="127.0" mnemonicParsing="false" onAction="#botaoCadastrarIngrediente" prefHeight="53.0" prefWidth="120.0" text="Cadastrar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="81.0" layoutY="285.0" mnemonicParsing="false" onAction="#botaoExcluirIngrediente" prefHeight="53.0" prefWidth="120.0" text="Excluir">
+                                    <Button layoutX="81.0" layoutY="285.0" mnemonicParsing="false" onAction="#botaoDeletarIngrediente" prefHeight="53.0" prefWidth="120.0" text="Deletar">
                                        <font>
                                           <Font size="16.0" />
                                        </font>

@@ -52,6 +52,6 @@ public class Ingrediente extends Produto {
 
     @Override
     public String toString() {
-        return getNome() + " - " + getQuantidade() + "" + getMedidaPadrao();
+        return super.toString() + " Quantidade: " + getQuantidade() + "" + getMedidaPadrao();
     }
 }

@@ -28,19 +28,19 @@ public class dbIngrediente {
         String sql = "INSERT INTO ingrediente (nomeIngrediente, precoIngrediente, estoqueIngrediente)"
                 + "VALUES(?, ?, ?)";   
          
-        PreparedStatement stmt;
+        PreparedStatement preparedStatement;
         
-        // stmt recebe o comando SQL
-        stmt = this.conexao.prepareStatement(sql);
+        // preparedStatement recebe o comando SQL
+        preparedStatement = this.conexao.prepareStatement(sql);
         
-        // Seta os valores p/ o stmt, substituindo os "?"
-        stmt.setString(1, i.getNome());
-        stmt.setFloat(2, i.getPreco());
-        stmt.setInt(3, i.getEstoque());
+        // Seta os valores p/ o preparedStatement, substituindo os "?"
+        preparedStatement.setString(1, i.getNome());
+        preparedStatement.setFloat(2, i.getPreco());
+        preparedStatement.setInt(3, i.getEstoque());
         
-        // O stmt executa o comando SQL no BD, e fecha a conexão
-        stmt.execute();
-        stmt.close();
+        // O preparedStatement executa o comando SQL no BD, e fecha a conexão
+        preparedStatement.execute();
+        preparedStatement.close();
         
     }
     
@@ -48,67 +48,70 @@ public class dbIngrediente {
     public List<Ingrediente> pesquisaIngrediente() throws SQLException{
         // Prepara conexão p/ receber o comando SQL
         String sql = "SELECT * FROM ingrediente";
-        PreparedStatement stmt = this.conexao.prepareStatement(sql);
+        PreparedStatement preparedStatement = this.conexao.prepareStatement(sql);
         
         // Recebe o resultado da consulta SQL
-        ResultSet rs = stmt.executeQuery();
+        ResultSet resultSet = preparedStatement.executeQuery();
         
         List<Ingrediente> lista = new ArrayList<>();
         
-        // Enquanto existir registros, pega os valores do ReultSet e vai adicionando na lista
-        while(rs.next()) {
+        // Enquanto existirem ingredientes, pega os valores do reultSet e vai adicionando na lista
+        while(resultSet.next()) {
             //  A cada loop, é instanciado um novo objeto, p/ servir de ponte no envio de registros p/ a lista
-            Ingrediente c = new Ingrediente();
+            Ingrediente ingrediente = new Ingrediente();
             
-            // "c" -> Cliente novo - .setNome recebe o campo do banco de String "nome" 
-            c.setId(Integer.valueOf(rs.getString("idIngrediente")));
-            c.setNome(rs.getString("nomeIngrediente"));
+            // "ingrediente" -> Ingrediente novo - .setNome recebe o campo do banco de String "nome"...
+            ingrediente.setId(Integer.valueOf(resultSet.getString("idIngrediente")));
+            ingrediente.setNome(resultSet.getString("nomeIngrediente"));
+            ingrediente.setPreco(resultSet.getFloat("precoIngrediente"));
+            ingrediente.setEstoque(resultSet.getInt("estoqueIngrediente"));
             
-            // Adiciona o registro na lista
-            lista.add(c);            
+            // Adiciona o ingrediente na lista
+            lista.add(ingrediente);            
         }
         
         // Fecha a conexão com o BD
-        rs.close();
-        stmt.close();
+        resultSet.close();
+        preparedStatement.close();
         
-        // Retorna a lista de registros, gerados pela consulta
+        // Retorna a lista de ingrediente, gerados pela consulta
         return lista;          
     }
        
     // UPDATE - Atualiza registros
-    public void alteraIngrediente(Ingrediente i) throws SQLException {
+    public void alteraIngrediente(Ingrediente ingrediente) throws SQLException {
         // Prepara conexão p/ receber o comando SQL
         String sql = "UPDATE ingrediente set nomeIngrediente = ?, precoIngrediente = ?, estoqueIngrediente = ?"
                 + "WHERE idIngrediente = ?";
         // stmt recebe o comando SQL
-        PreparedStatement stmt = this.conexao.prepareStatement(sql);
+        PreparedStatement preparedStatement = this.conexao.prepareStatement(sql);
         
         // Seta os valores p/ o stmt, substituindo os "?"
-        stmt.setString(1, i.getNome());
-        stmt.setFloat(2, i.getPreco());
-        stmt.setInt(3, i.getEstoque());       
+        preparedStatement.setString(1, ingrediente.getNome());
+        preparedStatement.setFloat(2, ingrediente.getPreco());
+        preparedStatement.setInt(3, ingrediente.getEstoque());
+        //preparedStatement.setInt(4, ingrediente.getId());
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
-        stmt.execute();
-        stmt.close();
+        preparedStatement.execute();
+        preparedStatement.close();
     }
     
     // DELETE - Apaga registros
-    public void removeIngrediente(int idIngrediente) throws SQLException {
+    public void removeIngrediente(Ingrediente ingrediente) throws SQLException {
         
         // Prepara conexão p/ receber o comando SQL
         String sql = "DELETE FROM Ingrediente WHERE idIngrediente = ?";
         
-        // stmt recebe o comando SQL
-        PreparedStatement stmt = this.conexao.prepareStatement(sql);
+        // preparedStatement recebe o comando SQL
+        PreparedStatement preparedStatement = this.conexao.prepareStatement(sql);
         
-        // Seta o valor do ID p/ a condição de verificação SQL, dentro do stmt
-        stmt.setInt(1, idIngrediente);
+        // Seta o valor do ID p/ a condição de verificação SQL, dentro do preparedStatement
+        preparedStatement.setInt(1, ingrediente.getId());
         
         // Executa o codigo SQL, e fecha
-        stmt.execute();
-        stmt.close();
+        preparedStatement.execute();
+        preparedStatement.close();
         
     }   
 }
