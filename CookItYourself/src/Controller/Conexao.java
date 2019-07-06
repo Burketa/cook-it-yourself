@@ -16,7 +16,7 @@ public class Conexao {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Conectou ao banco");
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/dbCook", "root", "cookit");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/dbCook?autoReconnect=true&useSSL=false", "root", "cookit");
         } catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());
         }      

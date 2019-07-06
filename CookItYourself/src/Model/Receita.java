@@ -86,5 +86,10 @@ public class Receita {
         this.idTipica = idTipica;
    }
    
+   @Override
+   public String toString()
+   {
+       return getNomeReceita();
+   }
 }
 

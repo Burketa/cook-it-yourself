@@ -36,4 +36,12 @@ public class Utils {
         else
             return false;
     }
+    
+    public static boolean receitaCamposPreenchidos(String nome, String modo, String tempo, String rendimento)
+    {
+        if((!nome.equals("")) && (!modo.equals("")) && (!tempo.equals("")) && (!rendimento.equals("")))
+            return true;
+        else
+            return false;
+    }
 }
