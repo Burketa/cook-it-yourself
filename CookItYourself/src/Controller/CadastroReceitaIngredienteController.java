@@ -3,6 +3,7 @@ package Controller;
 import Model.Ingrediente;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,8 +24,9 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import utils.Utils;
 
-
 public class CadastroReceitaIngredienteController {
+
+    private Ingrediente ingredienteSelecionado;
 
     @FXML
     private TextField txtBuscarReceita;
@@ -60,32 +62,39 @@ public class CadastroReceitaIngredienteController {
     private TableColumn estoqueIngredienteColuna;
     @FXML
     private ListView listView;
+    @FXML
+    private TextField pesquisaIngrediente;
+
+    @FXML
+    public void initialize() throws SQLException {
+        recuperarIngrediente(false);
+    }
 
     @FXML
     private void botaoCadastrarIngrediente(ActionEvent event) throws SQLException {
         System.out.println("Click Salvar");
         cadastrarIngrediente();
-        recuperarIngrediente();
+        recuperarIngrediente(false);
     }
 
     @FXML
     private void botaoRecuperarIngrediente(ActionEvent event) throws SQLException {
         System.out.println("click Buscar");
-        recuperarIngrediente();
+        recuperarIngrediente(true);
     }
 
     @FXML
     private void botaoAlterarIngrediente(ActionEvent event) throws SQLException {
         System.out.println("Click Alterar");
         alterarIngrediente();
-        recuperarIngrediente();
+        recuperarIngrediente(false);
     }
 
     @FXML
     private void botaoDeletarIngrediente(ActionEvent event) throws SQLException {
         System.out.println("click Excluir");
         deletarIngrediente();
-        recuperarIngrediente();
+        recuperarIngrediente(false);
     }
 
     @FXML
@@ -131,37 +140,35 @@ public class CadastroReceitaIngredienteController {
         }
     }
 
-    public void recuperarIngrediente() throws SQLException {
+    public void recuperarIngrediente(boolean isBusca) throws SQLException {
         dbIngrediente db = new dbIngrediente();
-        
-        List<Ingrediente> listIngrediente = db.pesquisaIngrediente();
-        ObservableList<Ingrediente> observableListIngrediente = FXCollections.observableArrayList(db.pesquisaIngrediente());
-        
-        listView.getItems().setAll(observableListIngrediente);
-
-        /* nomeIngredienteColuna.setcell(
-         new PropertyValueFactory<>("nome"));
-         precoIngredienteColuna.setCellValueFactory(
-         new PropertyValueFactory<>("idade"));
-         estoqueIngredienteColuna.setCellValueFactory(
-         new PropertyValueFactory<>("endereco"));
-        
-         */
-        //System.out.println(db.pesquisaIngrediente());
+        List<Ingrediente> listIngrediente = new ArrayList<>();
+        if (isBusca) {
+            listIngrediente = db.pesquisaIngrediente(pesquisaIngrediente.getText());
+        } else {
+            listIngrediente = db.pesquisaIngrediente("");
+        }
+        if (listIngrediente.size() > 0) {
+            listView.getItems().setAll(listIngrediente);
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum resultado encontrado");
+        }
     }
 
     public void alterarIngrediente() throws SQLException {
         dbIngrediente db = new dbIngrediente();
         Ingrediente ingrediente = new Ingrediente();
 
+        String idIngredienteString = idIngrediente.getText();
         String nomeIngredienteString = nomeIngrediente.getText();
         String precoIngredienteString = precoIngrediente.getText();
         String estoqueIngredienteString = estoqueIngrediente.getText();
-        //ingrediente.setid = selecionado na tabela de pesquisa
 
         boolean camposPreenchidos = Utils.ingredienteCamposPreenchidos(nomeIngredienteString, precoIngredienteString, estoqueIngredienteString);
 
         if (camposPreenchidos) {
+            ingrediente.setId(Integer.parseInt(idIngredienteString));
+
             ingrediente.setNome(nomeIngredienteString);
 
             if (Utils.isFloat(precoIngredienteString)) {
@@ -177,7 +184,7 @@ public class CadastroReceitaIngredienteController {
             }
 
             db.alteraIngrediente(ingrediente);
-            System.out.println("Ingrediente Alterado: " + ingrediente.toString());
+            System.out.println("Ingrediente Alterado");
         } else {
             JOptionPane.showMessageDialog(null, "Campos não preenchidos.");
         }
@@ -186,25 +193,31 @@ public class CadastroReceitaIngredienteController {
     public void deletarIngrediente() throws SQLException {
 
         dbIngrediente db = new dbIngrediente();
-        Ingrediente ingrediente = new Ingrediente();
-
-        //nome.setcell //ingrediente.setid = selecionado na tabela de pesquisa
-        db.removeIngrediente(ingrediente);
+        String idIngredienteString = idIngrediente.getText();
+        if (!idIngredienteString.equals("")) {
+            int idIngredienteSelecionado = Integer.parseInt(idIngredienteString);
+            db.removeIngrediente(idIngredienteSelecionado);
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um ingrediente.");
+        }
     }
 
     @FXML
     public void clickIngrediente(MouseEvent event) throws IOException {
-        
+
         selecionarIngrediente();
     }
 
-    private void selecionarIngrediente(){
-        Ingrediente ingrediente = (Ingrediente)listView.getSelectionModel().getSelectedItem();
-        
+    private void selecionarIngrediente() {
+        Ingrediente ingrediente = (Ingrediente) listView.getSelectionModel().getSelectedItem();
+
+        ingredienteSelecionado = ingrediente;
+
         idIngrediente.setText(String.valueOf(ingrediente.getId()));
         nomeIngrediente.setText(ingrediente.getNome());
         precoIngrediente.setText(String.valueOf(ingrediente.getPreco()));
         estoqueIngrediente.setText(String.valueOf(ingrediente.getEstoque()));
+
     }
 
 }
