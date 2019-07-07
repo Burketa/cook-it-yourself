@@ -6,7 +6,6 @@ import Model.Medida;
 import Model.Receita;
 import Model.ReceitaIngrediente;
 import Model.Tipica;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,77 +31,78 @@ import utils.Utils;
 
 public class CadastroReceitaIngredienteController {
 
-    private Ingrediente ingredienteSelecionado;
+    // <editor-fold desc="FXML Ingrediente">
+    @FXML
+    private TextField ingredientePesquisaTextField;
+    @FXML
+    private TextField ingredienteIdTextField;
+    @FXML
+    private TextField ingredienteNomeTextField;
+    @FXML
+    private TextField ingredientePrecoTextField;
+    @FXML
+    private TextField ingredienteEstoqueTextField;
+    @FXML
+    private ComboBox<Medida> ingredienteMedidaComboBox;
+    @FXML
+    private TableView<Ingrediente> ingredienteTableView;
+    @FXML
+    private TableColumn<Ingrediente, Integer> ingredienteIdColuna;
+    @FXML
+    private TableColumn<Ingrediente, String> ingredienteNomeColuna;
+    @FXML
+    private TableColumn<Ingrediente, Float> ingredientePrecoColuna;
+    @FXML
+    private TableColumn<Ingrediente, Integer> ingredienteEstoqueColuna;
+    @FXML
+    private TableColumn<Ingrediente, String> ingredienteMedidaColuna;
+    // </editor-fold>
 
-    //region FXML Ingredientes
+    // <editor-fold desc="FXML Receita">
     @FXML
-    private TextField pesquisaIngrediente;
+    private TextField receitaPesquisaTextField;
     @FXML
-    private TextField idIngrediente;
+    private TextField receitaIdTextField;
     @FXML
-    private TextField nomeIngrediente;
+    private TextField receitaNomeTextField;
     @FXML
-    private TextField precoIngrediente;
+    private TextArea receitaPreparoTextField;
     @FXML
-    private TextField estoqueIngrediente;
+    private TextField receitaTempoTextField;
     @FXML
-    private ComboBox<Medida> medidaIngrediente;
+    private TextField receitaRendimentoTextField;
     @FXML
-    private TableView<Ingrediente> tabelaIngrediente;
+    private ComboBox<Categoria> receitaCategoriaComboBox;
     @FXML
-    private TableColumn<Ingrediente, Integer> idIngredienteColuna;
+    private ComboBox<Tipica> receitaTipicaComboBox;
     @FXML
-    private TableColumn<Ingrediente, String> nomeIngredienteColuna;
+    private ComboBox<Ingrediente> receitaIngredienteComboBox;
     @FXML
-    private TableColumn<Ingrediente, Float> precoIngredienteColuna;
+    private TextField receitaQuantidadeTextField;
     @FXML
-    private TableColumn<Ingrediente, Integer> estoqueIngredienteColuna;
+    private TableView<Receita> receitaTableView;
     @FXML
-    private TableColumn<Ingrediente, String> medidaIngredienteColuna;
-    //endregion
+    private TableColumn<Receita, Integer> receitaIdColuna;
+    @FXML
+    private TableColumn<Receita, String> receitaNomeColuna;
+    @FXML
+    private TableColumn<Receita, String> receitaCategoriaColuna;
+    @FXML
+    private TableColumn<Receita, String> receitaTipicaColuna;
+    @FXML
+    private TableColumn<Receita, String> receitaPreparoColuna;
+    @FXML
+    private TableColumn<Receita, String> receitaTempoColuna;
+    @FXML
+    private TableColumn<Receita, Integer> receitaRendimentoColuna;
+    @FXML
+    private ListView<ReceitaIngrediente> receitaIngredientesListView;
+    // </editor-fold>
 
-    //region FXML
+    // <editor-fold desc="FXML ReceitaIngrediente">
     @FXML
     private Button buttonAdicionarIngredienteReceita;
-    @FXML
-    private TextField pesquisaReceita;
-    @FXML
-    private TextField idReceita;
-    @FXML
-    private TextField nomeReceita;
-    @FXML
-    private TextArea modoPreparoReceita;
-    @FXML
-    private TextField tempoPreparoReceita;
-    @FXML
-    private TextField rendimentoReceita;
-    @FXML
-    private ComboBox<Categoria> categoriaReceita;
-    @FXML
-    private ComboBox<Tipica> tipicaReceita;
-    @FXML
-    private ComboBox<Ingrediente> ingredienteReceita;
-    @FXML
-    private TextField quantidadeReceita;
-    @FXML
-    private TableView<Receita> tabelaReceita;
-    @FXML
-    private TableColumn<Receita, Integer> idReceitaColuna;
-    @FXML
-    private TableColumn<Receita, String> nomeReceitaColuna;
-    @FXML
-    private TableColumn<Receita, String> categoriaReceitaColuna;
-    @FXML
-    private TableColumn<Receita, String> tipicaReceitaColuna;
-    @FXML
-    private TableColumn<Receita, String> preparoReceitaColuna;
-    @FXML
-    private TableColumn<Receita, String> tempoReceitaColuna;
-    @FXML
-    private TableColumn<Receita, Integer> rendimentoReceitaColuna;
-    @FXML
-    private ListView<ReceitaIngrediente> listaIngredientesReceita;
-    //endregion
+    // </editor-fold>
 
     @FXML
     public void initialize() throws SQLException {
@@ -111,10 +111,20 @@ public class CadastroReceitaIngredienteController {
         configurarComboBoxes();
     }
 
-    //region Ingrediente
+    @FXML
+    private void botaoFiltro(ActionEvent event) throws IOException {
+        System.out.println("Click Iniciar Filtro");
+        Parent root = FXMLLoader.load(getClass().getResource("/View/Home.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Primeiro Filtro");
+        stage.setScene(new Scene(root, 1200, 800));
+        stage.show();
+    }
+
+    // <editor-fold desc="Ingrediente">
     @FXML
     private void botaoCadastrarIngrediente(ActionEvent event) throws SQLException {
-        System.out.println("Click Salvar Ingrediente");
+        System.out.println("Click Novo Ingrediente");
         cadastrarIngrediente();
         recuperarIngrediente(false);
     }
@@ -134,54 +144,23 @@ public class CadastroReceitaIngredienteController {
 
     @FXML
     private void botaoDeletarIngrediente(ActionEvent event) throws SQLException {
-        System.out.println("click Excluir Ingrediente");
+        System.out.println("click Deletar Ingrediente");
         deletarIngrediente();
         recuperarIngrediente(false);
     }
 
-    @FXML
-    private void botaoFiltro(ActionEvent event) throws IOException {
-        System.out.println("Click Iniciar Filtro");
-        Parent root = FXMLLoader.load(getClass().getResource("/View/Home.fxml"));
-        Stage stage = new Stage();
-        stage.setTitle("Primeiro Filtro");
-        stage.setScene(new Scene(root, 1200, 800));
-        stage.show();
-    }
-
     public void cadastrarIngrediente() throws SQLException {
-
         dbIngrediente db = new dbIngrediente();
-        Ingrediente ingrediente = new Ingrediente();
 
-        String nomeIngredienteString = nomeIngrediente.getText();
-        String precoIngredienteString = precoIngrediente.getText();
-        String estoqueIngredienteString = estoqueIngrediente.getText();
-        Medida medidaIngredienteObj = medidaIngrediente.getSelectionModel().getSelectedItem();
+        String nomeIngrediente = ingredienteNomeTextField.getText();
+        String precoIngrediente = ingredientePrecoTextField.getText();
+        String estoqueIngrediente = ingredienteEstoqueTextField.getText();
+        Medida medidaIngrediente = ingredienteMedidaComboBox.getSelectionModel().getSelectedItem();
 
-        boolean camposPreenchidos = Utils.ingredienteCamposPreenchidos(nomeIngredienteString, precoIngredienteString, estoqueIngredienteString, medidaIngredienteObj);
+        boolean camposPreenchidos = Utils.ingredienteCamposPreenchidos(nomeIngrediente, precoIngrediente, estoqueIngrediente, medidaIngrediente);
 
         if (camposPreenchidos) {
-            ingrediente.setNome(nomeIngredienteString);
-
-            if (Utils.isFloat(precoIngredienteString)) {
-                ingrediente.setPreco(Float.parseFloat(precoIngredienteString));
-            } else {
-                JOptionPane.showMessageDialog(null, "Preço não é valido (numero real ou inteiro).");
-            }
-
-            if (Utils.isInteger(estoqueIngredienteString)) {
-                ingrediente.setEstoque(Integer.parseInt(estoqueIngredienteString));
-            } else {
-                JOptionPane.showMessageDialog(null, "Estoque não é numero inteiro.");
-            }
-
-            if (medidaIngrediente != null) {
-                ingrediente.setMedida(medidaIngredienteObj);
-            } else {
-                JOptionPane.showMessageDialog(null, "Selecione uma medida");
-            }
-
+            Ingrediente ingrediente = configurarIngrediente("", nomeIngrediente, precoIngrediente, estoqueIngrediente, medidaIngrediente);
             db.adicionaIngrediente(ingrediente);
             System.out.println("Ingrediente Adicionado: " + ingrediente.toString());
         } else {
@@ -193,17 +172,18 @@ public class CadastroReceitaIngredienteController {
         dbIngrediente db = new dbIngrediente();
         List<Ingrediente> listIngrediente = new ArrayList<>();
         if (isBusca) {
-            listIngrediente = db.recuperaIngredientes(pesquisaIngrediente.getText());
+            listIngrediente = db.recuperaIngredientes(ingredientePesquisaTextField.getText());
         } else {
             listIngrediente = db.recuperaIngredientes("");
         }
         if (listIngrediente.size() > 0) {
-            tabelaIngrediente.getItems().setAll(listIngrediente);
-            idIngredienteColuna.setCellValueFactory(new PropertyValueFactory<>("id"));
-            nomeIngredienteColuna.setCellValueFactory(new PropertyValueFactory<>("nome"));
-            precoIngredienteColuna.setCellValueFactory(new PropertyValueFactory<>("preco"));
-            estoqueIngredienteColuna.setCellValueFactory(new PropertyValueFactory<>("estoque"));
-            medidaIngredienteColuna.setCellValueFactory(new PropertyValueFactory<>("medidaString"));
+            ingredienteTableView.getItems().setAll(listIngrediente);
+
+            ingredienteIdColuna.setCellValueFactory(new PropertyValueFactory<>("id"));
+            ingredienteNomeColuna.setCellValueFactory(new PropertyValueFactory<>("nome"));
+            ingredientePrecoColuna.setCellValueFactory(new PropertyValueFactory<>("preco"));
+            ingredienteEstoqueColuna.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+            ingredienteMedidaColuna.setCellValueFactory(new PropertyValueFactory<>("medidaString"));
         } else {
             JOptionPane.showMessageDialog(null, "Nenhum resultado encontrado");
         }
@@ -211,56 +191,65 @@ public class CadastroReceitaIngredienteController {
 
     public void alterarIngrediente() throws SQLException {
         dbIngrediente db = new dbIngrediente();
-        Ingrediente ingrediente = new Ingrediente();
 
-        String idIngredienteString = idIngrediente.getText();
-        String nomeIngredienteString = nomeIngrediente.getText();
-        String precoIngredienteString = precoIngrediente.getText();
-        String estoqueIngredienteString = estoqueIngrediente.getText();
-        Medida medidaIngredienteObj = medidaIngrediente.getSelectionModel().getSelectedItem();
+        String idIngrediente = ingredienteIdTextField.getText();
+        String nomeIngrediente = ingredienteNomeTextField.getText();
+        String precoIngrediente = ingredientePrecoTextField.getText();
+        String estoqueIngrediente = ingredienteEstoqueTextField.getText();
+        Medida medidaIngrediente = ingredienteMedidaComboBox.getSelectionModel().getSelectedItem();
 
-        boolean camposPreenchidos = Utils.ingredienteCamposPreenchidos(nomeIngredienteString, precoIngredienteString, estoqueIngredienteString, medidaIngredienteObj);
+        boolean camposPreenchidos = Utils.ingredienteCamposPreenchidos(nomeIngrediente, precoIngrediente, estoqueIngrediente, medidaIngrediente);
 
         if (camposPreenchidos) {
-            ingrediente.setId(Integer.parseInt(idIngredienteString));
-
-            ingrediente.setNome(nomeIngredienteString);
-
-            if (Utils.isFloat(precoIngredienteString)) {
-                ingrediente.setPreco(Float.parseFloat(precoIngredienteString));
-            } else {
-                JOptionPane.showMessageDialog(null, "Preço não é valido (numero real ou inteiro).");
-            }
-
-            if (Utils.isInteger(estoqueIngredienteString)) {
-                ingrediente.setEstoque(Integer.parseInt(estoqueIngredienteString));
-            } else {
-                JOptionPane.showMessageDialog(null, "Estoque não é numero inteiro.");
-            }
-
-            if (medidaIngrediente != null) {
-                ingrediente.setMedida(medidaIngredienteObj);
-            } else {
-                JOptionPane.showMessageDialog(null, "Selecione uma medida");
-            }
-
+            Ingrediente ingrediente = configurarIngrediente(idIngrediente, nomeIngrediente, precoIngrediente, estoqueIngrediente, medidaIngrediente);
             db.alteraIngrediente(ingrediente);
-            System.out.println("Ingrediente Alterado");
+            System.out.println("Ingrediente Alterado: " + ingrediente);
         } else {
             JOptionPane.showMessageDialog(null, "Campos não preenchidos.");
         }
     }
 
     public void deletarIngrediente() throws SQLException {
-
         dbIngrediente db = new dbIngrediente();
-        String idIngredienteString = idIngrediente.getText();
-        if (!idIngredienteString.equals("")) {
-            int idIngredienteSelecionado = Integer.parseInt(idIngredienteString);
+
+        String idIngrediente = ingredienteIdTextField.getText();
+
+        if (!idIngrediente.equals("")) {
+            int idIngredienteSelecionado = Integer.parseInt(idIngrediente);
             db.removeIngrediente(idIngredienteSelecionado);
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um ingrediente.");
         }
+    }
+
+    private Ingrediente configurarIngrediente(String id, String nome, String preco, String estoque, Medida medida) {
+        Ingrediente ingrediente = new Ingrediente();
+
+        if (!id.equals("")) {
+            ingrediente.setId(Integer.parseInt(id));
+        }
+
+        ingrediente.setNome(nome);
+
+        if (Utils.isFloat(preco)) {
+            ingrediente.setPreco(Float.parseFloat(preco));
+        } else {
+            JOptionPane.showMessageDialog(null, "Preço não é valido (numero real ou inteiro).");
+        }
+
+        if (Utils.isInteger(estoque)) {
+            ingrediente.setEstoque(Integer.parseInt(estoque));
+        } else {
+            JOptionPane.showMessageDialog(null, "Estoque não é numero inteiro.");
+        }
+
+        if (ingredienteMedidaComboBox != null) {
+            ingrediente.setMedida(medida);
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma medida");
+        }
+
+        return ingrediente;
     }
 
     @FXML
@@ -269,21 +258,20 @@ public class CadastroReceitaIngredienteController {
     }
 
     private void selecionarIngrediente() {
-        Ingrediente ingrediente = (Ingrediente) tabelaIngrediente.getSelectionModel().getSelectedItem();
+        Ingrediente ingrediente = ingredienteTableView.getSelectionModel().getSelectedItem();
 
-        idIngrediente.setText(String.valueOf(ingrediente.getId()));
-        nomeIngrediente.setText(ingrediente.getNome());
-        precoIngrediente.setText(String.valueOf(ingrediente.getPreco()));
-        estoqueIngrediente.setText(String.valueOf(ingrediente.getEstoque()));
-        medidaIngrediente.getSelectionModel().select(ingrediente.getMedidaId() - 1);
-
+        ingredienteIdTextField.setText(String.valueOf(ingrediente.getId()));
+        ingredienteNomeTextField.setText(ingrediente.getNome());
+        ingredientePrecoTextField.setText(String.valueOf(ingrediente.getPreco()));
+        ingredienteEstoqueTextField.setText(String.valueOf(ingrediente.getEstoque()));
+        ingredienteMedidaComboBox.getSelectionModel().select(ingrediente.getMedidaId() - 1);
     }
-    //endregion
+    // </editor-fold>
 
-    //Region Receita
+    // <editor-fold desc="Receita">
     @FXML
     private void botaoCadastrarReceita(ActionEvent event) throws SQLException {
-        System.out.println("Click Salvar Receita");
+        System.out.println("Click Nova Receita");
         cadastrarReceita();
         recuperarReceita(false);
     }
@@ -308,15 +296,16 @@ public class CadastroReceitaIngredienteController {
         recuperarReceita(false);
     }
 
+    //TODO:Melhorar
     @FXML
     private void botaoAdicionarIngredienteReceita(ActionEvent event) throws SQLException {
-        System.out.println("Click Adicionar Ingrediente");
+        System.out.println("Click Adicionar Ingrediente Receita");
         //deletarReceita();
         //recuperarReceita(false);
         //if (ingredienteReceita.getSelectionModel().getSelectedItem() != null) {
         adicionarIngredienteReceita();
-        if ((Receita) tabelaReceita.getSelectionModel().getSelectedItem() != null) {
-            recuperarIngredienteReceita((Receita) tabelaReceita.getSelectionModel().getSelectedItem());
+        if ((Receita) receitaTableView.getSelectionModel().getSelectedItem() != null) {
+            recuperarIngredienteReceita(receitaTableView.getSelectionModel().getSelectedItem());
         }
         //} else {
         //    JOptionPane.showMessageDialog(null, "Selecione um ingrediente.");
@@ -325,38 +314,31 @@ public class CadastroReceitaIngredienteController {
 
     @FXML
     private void botaoDeletarIngredienteReceita(ActionEvent event) throws SQLException {
-        System.out.println("Click Deletar Ingrediente");
+        System.out.println("Click Deletar Ingrediente Receita");
+        ReceitaIngrediente receitaIngrediente = receitaIngredientesListView.getSelectionModel().getSelectedItem();
 
-        if (listaIngredientesReceita.getSelectionModel().getSelectedItem() != null) {
+        if (receitaIngrediente != null) {
             deletarIngredienteReceita();
-            recuperarIngredienteReceita(tabelaReceita.getSelectionModel().getSelectedItem());
+            recuperarIngredienteReceita(receitaTableView.getSelectionModel().getSelectedItem());
         }
     }
 
     public void cadastrarReceita() throws SQLException {
-
         dbReceita db = new dbReceita();
-        Receita receita = new Receita();
 
-        String idReceitaString = idReceita.getText();
-        String nomeReceitaString = nomeReceita.getText();
-        String modoPreparoReceitaString = modoPreparoReceita.getText();
-        String tempoPreparoReceitaString = tempoPreparoReceita.getText();
-        String rendimentoReceitaString = rendimentoReceita.getText();
-        Categoria categoriaIngredienteObj = categoriaReceita.getSelectionModel().getSelectedItem();
-        Tipica tipicaIngredienteObj = tipicaReceita.getSelectionModel().getSelectedItem();
+        String nome = receitaNomeTextField.getText();
+        String modo = receitaPreparoTextField.getText();
+        String tempo = receitaTempoTextField.getText();
+        String rendimento = receitaRendimentoTextField.getText();
+        Categoria categoria = receitaCategoriaComboBox.getSelectionModel().getSelectedItem();
+        Tipica tipica = receitaTipicaComboBox.getSelectionModel().getSelectedItem();
 
-        boolean camposPreenchidos = Utils.receitaCamposPreenchidos(nomeReceitaString, modoPreparoReceitaString, tempoPreparoReceitaString,
-                rendimentoReceitaString, categoriaIngredienteObj, tipicaIngredienteObj);
+        boolean camposPreenchidos = Utils.receitaCamposPreenchidos(nome, modo, tempo,
+                rendimento, categoria, tipica);
 
         if (camposPreenchidos) {
-            receita.setNome(nomeReceitaString);
-            receita.setPreparo(modoPreparoReceitaString);
-            receita.setTempo(tempoPreparoReceitaString);
-            receita.setRendimento(Integer.parseInt(rendimentoReceitaString));
-            receita.setCategoria(categoriaIngredienteObj);
-            receita.setTipica(tipicaIngredienteObj);
-
+            Receita receita = configurarReceita("", nome, modo, tempo,
+                    rendimento, categoria, tipica);
             db.adicionaReceita(receita);
             System.out.println("Receita Adicionada: " + receita.toString());
         } else {
@@ -367,20 +349,22 @@ public class CadastroReceitaIngredienteController {
     public void recuperarReceita(boolean isBusca) throws SQLException {
         dbReceita db = new dbReceita();
         List<Receita> listReceita = new ArrayList<>();
+        
         if (isBusca) {
-            listReceita = db.recuperaReceita(pesquisaReceita.getText());
+            listReceita = db.recuperaReceita(receitaPesquisaTextField.getText());
         } else {
             listReceita = db.recuperaReceita("");
         }
+        
         if (listReceita.size() > 0) {
-            tabelaReceita.getItems().setAll(listReceita);
-            idReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("id"));
-            nomeReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("nome"));
-            categoriaReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("categoriaString"));
-            tipicaReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("tipicaString"));
-            preparoReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("preparo"));
-            tempoReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("tempo"));
-            rendimentoReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("rendimento"));
+            receitaTableView.getItems().setAll(listReceita);
+            receitaIdColuna.setCellValueFactory(new PropertyValueFactory<>("id"));
+            receitaNomeColuna.setCellValueFactory(new PropertyValueFactory<>("nome"));
+            receitaCategoriaColuna.setCellValueFactory(new PropertyValueFactory<>("categoriaString"));
+            receitaTipicaColuna.setCellValueFactory(new PropertyValueFactory<>("tipicaString"));
+            receitaPreparoColuna.setCellValueFactory(new PropertyValueFactory<>("preparo"));
+            receitaTempoColuna.setCellValueFactory(new PropertyValueFactory<>("tempo"));
+            receitaRendimentoColuna.setCellValueFactory(new PropertyValueFactory<>("rendimento"));
         } else {
             JOptionPane.showMessageDialog(null, "Nenhum resultado encontrado");
         }
@@ -388,30 +372,23 @@ public class CadastroReceitaIngredienteController {
 
     public void alterarReceita() throws SQLException {
         dbReceita db = new dbReceita();
-        Receita receita = new Receita();
 
-        String idReceitaString = idReceita.getText();
-        String nomeReceitaString = nomeReceita.getText();
-        String modoPreparoReceitaString = modoPreparoReceita.getText();
-        String tempoPreparoReceitaString = tempoPreparoReceita.getText();
-        String rendimentoReceitaString = rendimentoReceita.getText();
-        Categoria categoriaIngredienteObj = categoriaReceita.getSelectionModel().getSelectedItem();
-        Tipica tipicaIngredienteObj = tipicaReceita.getSelectionModel().getSelectedItem();
+        String id = receitaIdTextField.getText();
+        String nome = receitaNomeTextField.getText();
+        String preparo = receitaPreparoTextField.getText();
+        String tempo = receitaTempoTextField.getText();
+        String rendimento = receitaRendimentoTextField.getText();
+        Categoria categoria = receitaCategoriaComboBox.getSelectionModel().getSelectedItem();
+        Tipica tipica = receitaTipicaComboBox.getSelectionModel().getSelectedItem();
 
-        boolean camposPreenchidos = Utils.receitaCamposPreenchidos(nomeReceitaString, modoPreparoReceitaString, tempoPreparoReceitaString,
-                rendimentoReceitaString, categoriaIngredienteObj, tipicaIngredienteObj);
+        boolean camposPreenchidos = Utils.receitaCamposPreenchidos(nome, preparo,
+                tempo, rendimento, categoria, tipica);
 
         if (camposPreenchidos) {
-            receita.setId(Integer.parseInt(idReceitaString));
-            receita.setNome(nomeReceitaString);
-            receita.setPreparo(modoPreparoReceitaString);
-            receita.setTempo(tempoPreparoReceitaString);
-            receita.setRendimento(Integer.parseInt(rendimentoReceitaString));
-            receita.setCategoria(categoriaIngredienteObj);
-            receita.setTipica(tipicaIngredienteObj);
-
+            Receita receita = configurarReceita("", nome, preparo, tempo,
+                    rendimento, categoria, tipica);
             db.alteraReceita(receita);
-            System.out.println("Receita Alterada");
+            System.out.println("Receita Alterada: " + receita);
         } else {
             JOptionPane.showMessageDialog(null, "Campos não preenchidos.");
         }
@@ -420,9 +397,9 @@ public class CadastroReceitaIngredienteController {
     public void deletarReceita() throws SQLException {
 
         dbReceita db = new dbReceita();
-        String idReceitaString = idReceita.getText();
-        if (!idReceitaString.equals("")) {
-            int idReceitaSelecionado = Integer.parseInt(idReceitaString);
+        String id = receitaIdTextField.getText();
+        if (!id.equals("")) {
+            int idReceitaSelecionado = Integer.parseInt(id);
             db.removeReceita(idReceitaSelecionado);
         } else {
             JOptionPane.showMessageDialog(null, "Selecione uma receita.");
@@ -433,14 +410,14 @@ public class CadastroReceitaIngredienteController {
         dbReceitaIngrediente db = new dbReceitaIngrediente();
 
         ReceitaIngrediente receitaIngrediente = new ReceitaIngrediente();
-        Ingrediente ingredienteObj = ingredienteReceita.getSelectionModel().getSelectedItem();
-        Receita receitaObj = tabelaReceita.getSelectionModel().getSelectedItem();
+        Ingrediente ingredienteObj = receitaIngredienteComboBox.getSelectionModel().getSelectedItem();
+        Receita receitaObj = receitaTableView.getSelectionModel().getSelectedItem();
 
         receitaIngrediente.setIdIngrediente(ingredienteObj.getId());
         receitaIngrediente.setIdReceita(receitaObj.getId());
         receitaIngrediente.setIngrediente(ingredienteObj);
         receitaIngrediente.setReceita(receitaObj);
-        receitaIngrediente.setQuantidade(Float.parseFloat(quantidadeReceita.getText()));
+        receitaIngrediente.setQuantidade(Float.parseFloat(receitaQuantidadeTextField.getText()));
 
         db.adicionaIngredienteReceita(receitaIngrediente);
     }
@@ -450,20 +427,34 @@ public class CadastroReceitaIngredienteController {
 
         List<ReceitaIngrediente> ingredienteList = db.getReceitaIngredientes(receita.getId());
 
-        System.out.println(ingredienteList);
-
-        listaIngredientesReceita.setItems(FXCollections.observableArrayList(ingredienteList));
+        receitaIngredientesListView.setItems(FXCollections.observableArrayList(ingredienteList));
 
     }
 
     public void deletarIngredienteReceita() throws SQLException {
         dbReceitaIngrediente db = new dbReceitaIngrediente();
 
-        int receitaId = tabelaReceita.getSelectionModel().getSelectedItem().getId();
-        int ingredienteId = listaIngredientesReceita.getSelectionModel().getSelectedItem().getIdIngrediente();
+        int receitaId = receitaTableView.getSelectionModel().getSelectedItem().getId();
+        int ingredienteId = receitaIngredientesListView.getSelectionModel().getSelectedItem().getIdIngrediente();
 
         db.removeIngredienteReceita(receitaId, ingredienteId);
+    }
 
+    //TODO: Validacao dos campos
+    public Receita configurarReceita(String id, String nome, String preparo, String tempo, String rendimento, Categoria categoria, Tipica tipica) {
+        Receita receita = new Receita();
+
+        if (!id.equals("")) {
+            receita.setId(Integer.parseInt(id));
+        }
+        receita.setNome(nome);
+        receita.setPreparo(preparo);
+        receita.setTempo(tempo);
+        receita.setRendimento(Integer.parseInt(rendimento));
+        receita.setCategoria(categoria);
+        receita.setTipica(tipica);
+
+        return receita;
     }
 
     @FXML
@@ -472,20 +463,22 @@ public class CadastroReceitaIngredienteController {
     }
 
     private void selecionarReceita() throws SQLException {
-        Receita receita = (Receita) tabelaReceita.getSelectionModel().getSelectedItem();
+        Receita receita = receitaTableView.getSelectionModel().getSelectedItem();
 
-        idReceita.setText(String.valueOf(receita.getId()));
-        nomeReceita.setText(receita.getNome());
-        modoPreparoReceita.setText(String.valueOf(receita.getPreparo()));
-        tempoPreparoReceita.setText(String.valueOf(receita.getTempo()));
-        rendimentoReceita.setText(String.valueOf(receita.getRendimento()));
-        categoriaReceita.getSelectionModel().select(receita.getCategoriaId() - 1);
-        tipicaReceita.getSelectionModel().select(receita.getTipicaId() - 1);
+        receitaIdTextField.setText(String.valueOf(receita.getId()));
+        receitaNomeTextField.setText(receita.getNome());
+        receitaPreparoTextField.setText(String.valueOf(receita.getPreparo()));
+        receitaTempoTextField.setText(String.valueOf(receita.getTempo()));
+        receitaRendimentoTextField.setText(String.valueOf(receita.getRendimento()));
+        receitaCategoriaComboBox.getSelectionModel().select(receita.getCategoriaId() - 1);
+        receitaTipicaComboBox.getSelectionModel().select(receita.getTipicaId() - 1);
 
         recuperarIngredienteReceita(receita);
         //listaIngredientesReceita.getSelectionModel().select(0);
     }
-    
+    // </editor-fold>
+
+    // <editor-fold desc="ReceitaIngrediente">
     @FXML
     public void clickReceitaIngrediente(MouseEvent event) throws IOException, SQLException {
         System.out.println("Click ReceitaIngrediente");
@@ -494,25 +487,27 @@ public class CadastroReceitaIngredienteController {
 
     //TODO: Arrumar
     private void selecionarReceitaIngrediente() throws SQLException {
-        ReceitaIngrediente receitaIngrediente = listaIngredientesReceita.getSelectionModel().getSelectedItem();
+        ReceitaIngrediente receitaIngrediente = receitaIngredientesListView.getSelectionModel().getSelectedItem();
 
         System.out.println("\nId Ingrediente: " + (receitaIngrediente.getIdIngrediente()));
-        System.out.println("\nSelected on list Index: " + listaIngredientesReceita.getSelectionModel().getSelectedIndex());
+        System.out.println("\nSelected on list Index: " + receitaIngredientesListView.getSelectionModel().getSelectedIndex());
 
-        quantidadeReceita.setText(String.valueOf(receitaIngrediente.getQuantidade()));
-        ingredienteReceita.getSelectionModel().select(receitaIngrediente.getIdIngrediente());
+        receitaQuantidadeTextField.setText(String.valueOf(receitaIngrediente.getQuantidade()));
+        receitaIngredienteComboBox.getSelectionModel().select(receitaIngrediente.getIdIngrediente());
     }
 
-    //endregion
+    // </editor-fold>
+    // <editor-fold desc="Metodos">
     public void configurarComboBoxes() throws SQLException {
         dbIngrediente dbIngrediente = new dbIngrediente();
         dbTipica dbTipica = new dbTipica();
         dbCategoria dbCategoria = new dbCategoria();
         dbMedida dbMedida = new dbMedida();
 
-        categoriaReceita.setItems(FXCollections.observableArrayList(dbCategoria.recuperarCategorias()));
-        tipicaReceita.setItems(FXCollections.observableArrayList(dbTipica.recuperarTipicas()));
-        ingredienteReceita.setItems(FXCollections.observableArrayList(dbIngrediente.recuperaIngredientes("")));
-        medidaIngrediente.setItems(FXCollections.observableArrayList(dbMedida.recuperarMedidas("")));
+        receitaCategoriaComboBox.setItems(FXCollections.observableArrayList(dbCategoria.recuperarCategorias()));
+        receitaTipicaComboBox.setItems(FXCollections.observableArrayList(dbTipica.recuperarTipicas()));
+        receitaIngredienteComboBox.setItems(FXCollections.observableArrayList(dbIngrediente.recuperaIngredientes("")));
+        ingredienteMedidaComboBox.setItems(FXCollections.observableArrayList(dbMedida.recuperarMedidas("")));
     }
+    // </editor-fold>
 }
