@@ -76,7 +76,7 @@ public class dbIngrediente {
             ingrediente.setEstoque(resultSet.getInt("estoqueIngrediente"));
             ingrediente.setMedidaId(Utils.medidaStringToId(resultSet.getString("medidaIngrediente")));
             ingrediente.setMedidaString(resultSet.getString("medidaIngrediente"));
-            
+
             // Adiciona o ingrediente na lista
             lista.add(ingrediente);
         }

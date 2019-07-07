@@ -52,6 +52,7 @@ public class Ingrediente extends Produto {
     
     @Override
     public String toString() {
-        return super.toString() + " Medida: " + getMedidaString();
+        //return super.toString() + " Medida: " + getMedidaString();
+        return "" + getId() + " - " + getNome() + " | " + getMedidaString();
     }
 }

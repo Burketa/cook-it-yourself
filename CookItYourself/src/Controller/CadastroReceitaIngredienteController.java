@@ -4,7 +4,9 @@ import Model.Categoria;
 import Model.Ingrediente;
 import Model.Medida;
 import Model.Receita;
+import Model.ReceitaIngrediente;
 import Model.Tipica;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,7 +17,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -57,7 +61,9 @@ public class CadastroReceitaIngredienteController {
     private TableColumn<Ingrediente, String> medidaIngredienteColuna;
     //endregion
 
-    //region FXML Receitas
+    //region FXML
+    @FXML
+    private Button buttonAdicionarIngredienteReceita;
     @FXML
     private TextField pesquisaReceita;
     @FXML
@@ -94,6 +100,8 @@ public class CadastroReceitaIngredienteController {
     private TableColumn<Receita, String> tempoReceitaColuna;
     @FXML
     private TableColumn<Receita, Integer> rendimentoReceitaColuna;
+    @FXML
+    private ListView<ReceitaIngrediente> listaIngredientesReceita;
     //endregion
 
     @FXML
@@ -300,6 +308,31 @@ public class CadastroReceitaIngredienteController {
         recuperarReceita(false);
     }
 
+    @FXML
+    private void botaoAdicionarIngredienteReceita(ActionEvent event) throws SQLException {
+        System.out.println("Click Adicionar Ingrediente");
+        //deletarReceita();
+        //recuperarReceita(false);
+        //if (ingredienteReceita.getSelectionModel().getSelectedItem() != null) {
+        adicionarIngredienteReceita();
+        if ((Receita) tabelaReceita.getSelectionModel().getSelectedItem() != null) {
+            recuperarIngredienteReceita((Receita) tabelaReceita.getSelectionModel().getSelectedItem());
+        }
+        //} else {
+        //    JOptionPane.showMessageDialog(null, "Selecione um ingrediente.");
+        //}
+    }
+
+    @FXML
+    private void botaoDeletarIngredienteReceita(ActionEvent event) throws SQLException {
+        System.out.println("Click Deletar Ingrediente");
+
+        if (listaIngredientesReceita.getSelectionModel().getSelectedItem() != null) {
+            deletarIngredienteReceita();
+            recuperarIngredienteReceita(tabelaReceita.getSelectionModel().getSelectedItem());
+        }
+    }
+
     public void cadastrarReceita() throws SQLException {
 
         dbReceita db = new dbReceita();
@@ -396,15 +429,51 @@ public class CadastroReceitaIngredienteController {
         }
     }
 
+    public void adicionarIngredienteReceita() throws SQLException {
+        dbReceitaIngrediente db = new dbReceitaIngrediente();
+
+        ReceitaIngrediente receitaIngrediente = new ReceitaIngrediente();
+        Ingrediente ingredienteObj = ingredienteReceita.getSelectionModel().getSelectedItem();
+        Receita receitaObj = tabelaReceita.getSelectionModel().getSelectedItem();
+
+        receitaIngrediente.setIdIngrediente(ingredienteObj.getId());
+        receitaIngrediente.setIdReceita(receitaObj.getId());
+        receitaIngrediente.setIngrediente(ingredienteObj);
+        receitaIngrediente.setReceita(receitaObj);
+        receitaIngrediente.setQuantidade(Float.parseFloat(quantidadeReceita.getText()));
+
+        db.adicionaIngredienteReceita(receitaIngrediente);
+    }
+
+    public void recuperarIngredienteReceita(Receita receita) throws SQLException {
+        dbReceitaIngrediente db = new dbReceitaIngrediente();
+
+        List<ReceitaIngrediente> ingredienteList = db.getReceitaIngredientes(receita.getId());
+
+        System.out.println(ingredienteList);
+
+        listaIngredientesReceita.setItems(FXCollections.observableArrayList(ingredienteList));
+
+    }
+
+    public void deletarIngredienteReceita() throws SQLException {
+        dbReceitaIngrediente db = new dbReceitaIngrediente();
+
+        int receitaId = tabelaReceita.getSelectionModel().getSelectedItem().getId();
+        int ingredienteId = listaIngredientesReceita.getSelectionModel().getSelectedItem().getIdIngrediente();
+
+        db.removeIngredienteReceita(receitaId, ingredienteId);
+
+    }
+
     @FXML
-    public void clickReceita(MouseEvent event) throws IOException {
+    public void clickReceita(MouseEvent event) throws IOException, SQLException {
         selecionarReceita();
     }
 
-    private void selecionarReceita() {
+    private void selecionarReceita() throws SQLException {
         Receita receita = (Receita) tabelaReceita.getSelectionModel().getSelectedItem();
 
-        //ingredienteSelecionado = ingrediente;
         idReceita.setText(String.valueOf(receita.getId()));
         nomeReceita.setText(receita.getNome());
         modoPreparoReceita.setText(String.valueOf(receita.getPreparo()));
@@ -412,6 +481,25 @@ public class CadastroReceitaIngredienteController {
         rendimentoReceita.setText(String.valueOf(receita.getRendimento()));
         categoriaReceita.getSelectionModel().select(receita.getCategoriaId() - 1);
         tipicaReceita.getSelectionModel().select(receita.getTipicaId() - 1);
+
+        recuperarIngredienteReceita(receita);
+        //listaIngredientesReceita.getSelectionModel().select(0);
+    }
+    
+    @FXML
+    public void clickReceitaIngrediente(MouseEvent event) throws IOException, SQLException {
+        System.out.println("Click ReceitaIngrediente");
+        //selecionarReceitaIngrediente();
+    }
+
+    private void selecionarReceitaIngrediente() throws SQLException {
+        ReceitaIngrediente receitaIngrediente = listaIngredientesReceita.getSelectionModel().getSelectedItem();
+
+        System.out.println("\nId Ingrediente: " + (receitaIngrediente.getIdIngrediente()));
+        System.out.println("\nSelected on list Index: " + listaIngredientesReceita.getSelectionModel().getSelectedIndex());
+
+        quantidadeReceita.setText(String.valueOf(receitaIngrediente.getQuantidade()));
+        ingredienteReceita.getSelectionModel().select(receitaIngrediente.getIdIngrediente());
     }
 
     //endregion
@@ -425,6 +513,5 @@ public class CadastroReceitaIngredienteController {
         tipicaReceita.setItems(FXCollections.observableArrayList(dbTipica.recuperarTipicas()));
         ingredienteReceita.setItems(FXCollections.observableArrayList(dbIngrediente.recuperaIngredientes("")));
         medidaIngrediente.setItems(FXCollections.observableArrayList(dbMedida.recuperarMedidas("")));
-        //medidaIngredienteReceita.setItems(FXCollections.observableArrayList(db));
     }
 }

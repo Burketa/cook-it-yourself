@@ -1,24 +1,38 @@
 package Model;
 
-/**
- *
- * @author Aluno
- */
 public class ReceitaIngrediente {
+    private Receita receita;
+    private Ingrediente ingrediente;
     private int idReceita;
     private int idIngrediente;
     private float quantidade;
-    private int idMedida;
    
     
-   public ReceitaIngrediente(int idReceita, int idIngrediente, float quatidade, int idMedida){ 
+   public ReceitaIngrediente(int idReceita, int idIngrediente, float quantidade){ 
        this.idReceita = idReceita;
        this.idIngrediente = idIngrediente;
        this.quantidade = quantidade;
-       this.idMedida = idMedida;
    }
    
    public ReceitaIngrediente(){
+   }
+   
+   public Receita getReceita() {
+        return receita;
+   }
+   
+   public void setReceita(Receita receita) {
+        this.receita = receita;
+        idReceita = receita.getId();
+   }
+   
+   public Ingrediente getIngrediente() {
+        return ingrediente;
+   }
+   
+   public void setIngrediente(Ingrediente ingrediente) {
+        this.ingrediente = ingrediente;
+        idIngrediente = ingrediente.getId();
    }
    
    public int getIdReceita() {
@@ -45,15 +59,9 @@ public class ReceitaIngrediente {
         this.quantidade = quantidade;
    }
    
-   public String getNomeIngrediente() {
-        return Integer.toString(idIngrediente);
-   }
-
-   public String getPrecoIngrediente() {
-        return Integer.toString(idIngrediente);
-   }
-   
-   public String getEstoqueIngrediente() {
-        return Integer.toString(idIngrediente);
+   @Override
+   public String toString()
+   {
+       return "" + getIdIngrediente() + " - " + getQuantidade();//ingrediente.getNome() + " - " + getQuantidade() + "" + ingrediente.getMedidaString();
    }
 }

@@ -2,10 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Aluno
- */
 public class Receita {
     private int id;
     private String nome;
@@ -18,8 +14,6 @@ public class Receita {
     private int tipicaId;
     private String categoriaString;
     private String tipicaString;
-   
-    private ArrayList<Ingrediente> ingredientes;
     
    public Receita(int idReceita, String nomeReceita, String preparoReceita, String tempoReceita, int rendimentoReceita, int idCategoria, int idTipica){ 
        this.id = idReceita;

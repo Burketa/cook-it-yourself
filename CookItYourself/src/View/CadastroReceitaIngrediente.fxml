@@ -238,13 +238,13 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <ListView layoutX="548.0" layoutY="224.0" prefHeight="184.0" prefWidth="248.0" />
-                                    <Button disable="true" layoutX="821.0" layoutY="146.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="48.0" text="+">
+                                    <ListView fx:id="listaIngredientesReceita" layoutX="548.0" layoutY="224.0" onMouseClicked="#clickReceitaIngrediente" prefHeight="184.0" prefWidth="248.0" />
+                                    <Button fx:id="buttonAdicionarIngredienteReceita" layoutX="821.0" layoutY="146.0" mnemonicParsing="false" onAction="#botaoAdicionarIngredienteReceita" prefHeight="44.0" prefWidth="48.0" text="+">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
                                     </Button>
-                                    <Button disable="true" layoutX="821.0" layoutY="363.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="48.0" text="-">
+                                    <Button layoutX="821.0" layoutY="363.0" mnemonicParsing="false" onAction="#botaoDeletarIngredienteReceita" prefHeight="44.0" prefWidth="48.0" text="-">
                                        <font>
                                           <Font size="20.0" />
                                        </font>

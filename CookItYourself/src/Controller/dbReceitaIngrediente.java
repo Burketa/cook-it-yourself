@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import Model.Ingrediente;
+import Model.Receita;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,111 +13,152 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Model.ReceitaIngrediente;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+import javax.swing.JOptionPane;
+import utils.Utils;
 
 public class dbReceitaIngrediente {
-    
+
     //Conexão com o banco
     private Connection conexao;
-    
-    public dbReceitaIngrediente() throws SQLException {       
+
+    public dbReceitaIngrediente() throws SQLException {
         this.conexao = Conexao.getConexao();
     }
-    
+
     // CREATE - Adiciona um registro
-    public void adicionaIngrediente(ReceitaIngrediente i) throws SQLException {
-        
+    public void adicionaIngredienteReceita(ReceitaIngrediente receitaIngrediente) throws SQLException {
+
         // Prepara conexão p/ receber o comando SQL
-        String sql = "INSERT INTO ingrediente (nomeIngrediente, precoIngrediente, estoqueIngrediente)"
-                + "VALUES(?, ?, ?)"; 
-        
-        PreparedStatement stmt;
-        
+        String sql = "INSERT INTO receitaingrediente (idReceita, idIngrediente, quantidade)"
+                + "VALUES(?, ?, ?)";
+
+        PreparedStatement preparedStatement;
+
         // stmt recebe o comando SQL
-        stmt = this.conexao.prepareStatement(sql);
-        
+        preparedStatement = this.conexao.prepareStatement(sql);
+
         // Seta os valores p/ o stmt, substituindo os "?"
-        stmt.setString(1, i.getNomeIngrediente());
-        stmt.setString(2, i.getPrecoIngrediente());
-        stmt.setString(3, i.getEstoqueIngrediente());
-        
+        preparedStatement.setInt(1, receitaIngrediente.getIdReceita());
+        preparedStatement.setInt(2, receitaIngrediente.getIdIngrediente());
+        preparedStatement.setFloat(3, receitaIngrediente.getQuantidade());
+
+        System.out.println("Adicionado: " + receitaIngrediente);
+
         // O stmt executa o comando SQL no BD, e fecha a conexão
-        stmt.execute();
-        stmt.close();
-        
+        preparedStatement.execute();
+        preparedStatement.close();
     }
-    
-    /* SELECT - Retorna uma lista com o resultado da consulta
-    public List<Ingrediente> getLista(String nomeIngrediente) throws SQLException{
+
+    //SELECT - Retorna uma lista com o resultado da consulta
+    public List<ReceitaIngrediente> getReceitaIngredientes(int idReceita) throws SQLException {
         // Prepara conexão p/ receber o comando SQL
-        String sql = "SELECT * FROM ingrediente WHERE nome like ?";
-        PreparedStatement stmt = this.conexao.prepareStatement(sql);
-        stmt.setString(1, nomeIngrediente);
-        
+        String sql = "SELECT * FROM receitaingrediente WHERE idReceita = ?";
+        PreparedStatement preparedStatement = this.conexao.prepareStatement(sql);
+        preparedStatement.setInt(1, idReceita);
+
         // Recebe o resultado da consulta SQL
-        ResultSet rs = stmt.executeQuery();
-        
-        List<Cliente> lista = new ArrayList<>();
-        
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        List<ReceitaIngrediente> lista = new ArrayList<>();
+
         // Enquanto existir registros, pega os valores do ReultSet e vai adicionando na lista
-        while(rs.next()) {
+        while (resultSet.next()) {
             //  A cada loop, é instanciado um novo objeto, p/ servir de ponte no envio de registros p/ a lista
-            Cliente c = new Cliente();
-            
+            ReceitaIngrediente receitaIngrediente = new ReceitaIngrediente();
+
             // "c" -> Cliente novo - .setNome recebe o campo do banco de String "nome" 
-            c.setId(Integer.valueOf(rs.getString("id_cliente")));
-            c.setNome(rs.getString("nome"));
-            c.setDataNasc(rs.getString("data_nasc"));
-            c.setSexo(rs.getString("sexo"));
-            c.setCpf(rs.getString("cpf"));
-            c.setEndereco(rs.getString("endereco"));
-            c.setFone(rs.getString("fone"));
-            
+            receitaIngrediente.setIdReceita(resultSet.getInt("idReceita"));
+            receitaIngrediente.setIdIngrediente(resultSet.getInt("idIngrediente"));
+            receitaIngrediente.setQuantidade(resultSet.getFloat("quantidade"));
+
+            //
+            dbIngrediente dbIngrediente = new dbIngrediente();
+            List<Ingrediente> ingredienteList = dbIngrediente.recuperaIngredientes("");
+            //
+
             // Adiciona o registro na lista
-            lista.add(c);            
+            lista.add(receitaIngrediente);
         }
-        
-        
-        
+
         // Fecha a conexão com o BD
-        rs.close();
-        stmt.close();
-        
+        resultSet.close();
+        preparedStatement.close();
+
         // Retorna a lista de registros, gerados pela consulta
-        return lista;          
-    }*/
-       
+        return lista;
+    }
+
     // UPDATE - Atualiza registros
     public void alteraReceitaIngrediente(ReceitaIngrediente ri) throws SQLException {
-        
+
         // Prepara conexão p/ receber o comando SQL
         String sql = "UPDATE ingrediente set nomeIngrediente = ?, precoIngrediente = ?, estoqueIngrediente = ?"
                 + "WHERE idIngrediente = ?";
-        
+
         // stmt recebe o comando SQL
         PreparedStatement stmt = this.conexao.prepareStatement(sql);
-        
+
         // Seta os valores p/ o stmt, substituindo os "?"
-        stmt.setFloat(1, ri.getQuantidade());    
-        
+        stmt.setFloat(1, ri.getQuantidade());
+
         // O stmt executa o comando SQL no BD, e fecha a conexão
         stmt.execute();
         stmt.close();
     }
-    
+
     // DELETE - Apaga registros
-    public void removeIngrediente(int idIngrediente) throws SQLException {  
-        
+    public void removeIngredienteReceita(int receitaId, int ingredienteId) throws SQLException {
+
         // Prepara conexão p/ receber o comando SQL
-        String sql = "DELETE FROM ReceitaIngrediente WHERE idIngrediente = ?";
-        
+        String sql = "DELETE FROM receitaingrediente WHERE idIngrediente = ? AND idReceita = ?";
+
         // stmt recebe o comando SQL
-        PreparedStatement stmt = this.conexao.prepareStatement(sql);
-        
+        PreparedStatement preparedStatement = this.conexao.prepareStatement(sql);
+
         // Seta o valor do ID p/ a condição de verificação SQL, dentro do stmt
-        stmt.setInt(1, idIngrediente);
-        
+        preparedStatement.setInt(1, ingredienteId);
+        preparedStatement.setInt(2, receitaId);
+
         // Executa o codigo SQL, e fecha
-        stmt.execute();
-        stmt.close();
-    } 
+        preparedStatement.execute();
+        preparedStatement.close();
+    }
+
+    public List<Ingrediente> recuperaIngredientesById(int id) throws SQLException {
+        // Prepara conexão p/ receber o comando SQL
+        String sql = "SELECT * FROM ingrediente WHERE idIngrediente = ?";
+        PreparedStatement preparedStatement = null;
+        preparedStatement = this.conexao.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+
+        // Recebe o resultado da consulta SQL
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        List<Ingrediente> lista = new ArrayList<>();
+
+        // Enquanto existirem ingredientes, pega os valores do reultSet e vai adicionando na lista
+        while (resultSet.next()) {
+            //  A cada loop, é instanciado um novo objeto, p/ servir de ponte no envio de registros p/ a lista
+            Ingrediente ingrediente = new Ingrediente();
+
+            // "ingrediente" -> Ingrediente novo - .setNome recebe o campo do banco de String "nome"...
+            ingrediente.setId(Integer.valueOf(resultSet.getString("idIngrediente")));
+            ingrediente.setNome(resultSet.getString("nomeIngrediente"));
+            ingrediente.setPreco(resultSet.getFloat("precoIngrediente"));
+            ingrediente.setEstoque(resultSet.getInt("estoqueIngrediente"));
+            ingrediente.setMedidaId(Utils.medidaStringToId(resultSet.getString("medidaIngrediente")));
+            ingrediente.setMedidaString(resultSet.getString("medidaIngrediente"));
+
+            // Adiciona o ingrediente na lista
+            lista.add(ingrediente);
+        }
+
+        // Fecha a conexão com o BD
+        resultSet.close();
+        preparedStatement.close();
+
+        // Retorna a lista de ingrediente, gerados pela consulta
+        return lista;
+    }
 }
