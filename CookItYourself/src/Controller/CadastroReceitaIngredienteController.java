@@ -9,16 +9,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -146,9 +143,9 @@ public class CadastroReceitaIngredienteController {
         String nomeIngredienteString = nomeIngrediente.getText();
         String precoIngredienteString = precoIngrediente.getText();
         String estoqueIngredienteString = estoqueIngrediente.getText();
-        //String medidaIngredienteString = medidaIngrediente.getText();
+        Medida medidaIngredienteObj = medidaIngrediente.getSelectionModel().getSelectedItem();
 
-        boolean camposPreenchidos = Utils.ingredienteCamposPreenchidos(nomeIngredienteString, precoIngredienteString, estoqueIngredienteString, "a");
+        boolean camposPreenchidos = Utils.ingredienteCamposPreenchidos(nomeIngredienteString, precoIngredienteString, estoqueIngredienteString, medidaIngredienteObj);
 
         if (camposPreenchidos) {
             ingrediente.setNome(nomeIngredienteString);
@@ -164,7 +161,13 @@ public class CadastroReceitaIngredienteController {
             } else {
                 JOptionPane.showMessageDialog(null, "Estoque não é numero inteiro.");
             }
-
+            
+            if (medidaIngrediente != null) {
+                ingrediente.setMedida(medidaIngredienteObj);
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione uma medida");
+            }
+            
             db.adicionaIngrediente(ingrediente);
             System.out.println("Ingrediente Adicionado: " + ingrediente.toString());
         } else {
@@ -186,7 +189,7 @@ public class CadastroReceitaIngredienteController {
             nomeIngredienteColuna.setCellValueFactory(new PropertyValueFactory<>("nome"));
             precoIngredienteColuna.setCellValueFactory(new PropertyValueFactory<>("preco"));
             estoqueIngredienteColuna.setCellValueFactory(new PropertyValueFactory<>("estoque"));
-            medidaIngredienteColuna.setCellValueFactory(new PropertyValueFactory<>("medidaPadrao"));
+            medidaIngredienteColuna.setCellValueFactory(new PropertyValueFactory<>("medidaString"));
         } else {
             JOptionPane.showMessageDialog(null, "Nenhum resultado encontrado");
         }
@@ -200,9 +203,9 @@ public class CadastroReceitaIngredienteController {
         String nomeIngredienteString = nomeIngrediente.getText();
         String precoIngredienteString = precoIngrediente.getText();
         String estoqueIngredienteString = estoqueIngrediente.getText();
-        //String medidaIngredienteString = medidaIngrediente.getText();
+        Medida medidaIngredienteObj = medidaIngrediente.getSelectionModel().getSelectedItem();
 
-        boolean camposPreenchidos = Utils.ingredienteCamposPreenchidos(nomeIngredienteString, precoIngredienteString, estoqueIngredienteString, "a");
+        boolean camposPreenchidos = Utils.ingredienteCamposPreenchidos(nomeIngredienteString, precoIngredienteString, estoqueIngredienteString, medidaIngredienteObj);
 
         if (camposPreenchidos) {
             ingrediente.setId(Integer.parseInt(idIngredienteString));
@@ -219,6 +222,12 @@ public class CadastroReceitaIngredienteController {
                 ingrediente.setEstoque(Integer.parseInt(estoqueIngredienteString));
             } else {
                 JOptionPane.showMessageDialog(null, "Estoque não é numero inteiro.");
+            }
+            
+            if (medidaIngrediente != null) {
+                ingrediente.setMedida(medidaIngredienteObj);
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione uma medida");
             }
 
             db.alteraIngrediente(ingrediente);
@@ -248,12 +257,12 @@ public class CadastroReceitaIngredienteController {
     private void selecionarIngrediente() {
         Ingrediente ingrediente = (Ingrediente) tabelaIngrediente.getSelectionModel().getSelectedItem();
 
-        ingredienteSelecionado = ingrediente;
-
         idIngrediente.setText(String.valueOf(ingrediente.getId()));
         nomeIngrediente.setText(ingrediente.getNome());
         precoIngrediente.setText(String.valueOf(ingrediente.getPreco()));
         estoqueIngrediente.setText(String.valueOf(ingrediente.getEstoque()));
+        System.out.println(ingrediente.getMedidaId());
+        medidaIngrediente.getSelectionModel().select(ingrediente.getMedidaId() - 1);
 
     }
     //endregion

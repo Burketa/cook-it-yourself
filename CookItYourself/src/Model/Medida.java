@@ -28,9 +28,9 @@ public class Medida {
         return tipo;
     }
     
-    public void setTipo(String nome)
+    public void setTipo(String tipo)
     {
-        this.tipo = nome;
+        this.tipo = tipo;
     }
     
     @Override

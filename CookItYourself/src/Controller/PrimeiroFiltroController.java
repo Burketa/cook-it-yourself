@@ -14,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import utils.BDMercado;
 
 /**
  *
@@ -55,7 +54,5 @@ public class PrimeiroFiltroController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        BDMercado bdmercado = new BDMercado();
-        listView.getItems().addAll(bdmercado.produtos);
     }
 }

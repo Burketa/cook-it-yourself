@@ -47,7 +47,7 @@
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
-                                    <TableView fx:id="tabelaIngrediente" layoutX="90.0" layoutY="95.0" onMouseClicked="#clickIngrediente" prefHeight="230.0" prefWidth="612.0">
+                                    <TableView fx:id="tabelaIngrediente" layoutX="90.0" layoutY="95.0" onMouseClicked="#clickIngrediente" prefHeight="230.0" prefWidth="847.0">
                                       <columns>
                                           <TableColumn fx:id="idIngredienteColuna" prefWidth="43.20001220703125" text="ID" />
                                         <TableColumn fx:id="nomeIngredienteColuna" prefWidth="151.19993591308594" text="Nome Ingrediente" />

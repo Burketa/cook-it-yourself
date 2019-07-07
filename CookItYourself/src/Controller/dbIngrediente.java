@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Model.Ingrediente;
+import utils.Utils;
 
 public class dbIngrediente {
 
@@ -22,11 +23,11 @@ public class dbIngrediente {
     }
 
     // CREATE - Adiciona um registro
-    public void adicionaIngrediente(Ingrediente i) throws SQLException {
+    public void adicionaIngrediente(Ingrediente ingrediente) throws SQLException {
 
         // Prepara conexão p/ receber o comando SQL
-        String sql = "INSERT INTO ingrediente (nomeIngrediente, precoIngrediente, estoqueIngrediente)"
-                + "VALUES(?, ?, ?)";
+        String sql = "INSERT INTO ingrediente (nomeIngrediente, precoIngrediente, estoqueIngrediente, medidaIngrediente)"
+                + "VALUES(?, ?, ?, ?)";
 
         PreparedStatement preparedStatement;
 
@@ -34,9 +35,10 @@ public class dbIngrediente {
         preparedStatement = this.conexao.prepareStatement(sql);
 
         // Seta os valores p/ o preparedStatement, substituindo os "?"
-        preparedStatement.setString(1, i.getNome());
-        preparedStatement.setFloat(2, i.getPreco());
-        preparedStatement.setInt(3, i.getEstoque());
+        preparedStatement.setString(1, ingrediente.getNome());
+        preparedStatement.setFloat(2, ingrediente.getPreco());
+        preparedStatement.setInt(3, ingrediente.getEstoque());
+        preparedStatement.setString(4, ingrediente.getMedidaString());
 
         // O preparedStatement executa o comando SQL no BD, e fecha a conexão
         preparedStatement.execute();
@@ -72,7 +74,8 @@ public class dbIngrediente {
             ingrediente.setNome(resultSet.getString("nomeIngrediente"));
             ingrediente.setPreco(resultSet.getFloat("precoIngrediente"));
             ingrediente.setEstoque(resultSet.getInt("estoqueIngrediente"));
-
+            ingrediente.setMedidaId(Utils.medidaStringToId(resultSet.getString("medidaIngrediente")));
+            ingrediente.setMedidaString(resultSet.getString("medidaIngrediente"));
             // Adiciona o ingrediente na lista
             lista.add(ingrediente);
         }
@@ -88,7 +91,7 @@ public class dbIngrediente {
     // UPDATE - Atualiza registros
     public void alteraIngrediente(Ingrediente ingrediente) throws SQLException {
         // Prepara conexão p/ receber o comando SQL
-        String sql = "UPDATE ingrediente set nomeIngrediente = ?, precoIngrediente = ?, estoqueIngrediente = ? WHERE idIngrediente = ?";
+        String sql = "UPDATE ingrediente set nomeIngrediente = ?, precoIngrediente = ?, estoqueIngrediente = ?, medidaIngrediente = ? WHERE idIngrediente = ?";
         // stmt recebe o comando SQL
         PreparedStatement preparedStatement = this.conexao.prepareStatement(sql);
 
@@ -96,7 +99,8 @@ public class dbIngrediente {
         preparedStatement.setString(1, ingrediente.getNome());
         preparedStatement.setFloat(2, ingrediente.getPreco());
         preparedStatement.setInt(3, ingrediente.getEstoque());
-        preparedStatement.setInt(4, ingrediente.getId());
+        preparedStatement.setString(4, ingrediente.getMedida().getTipo());
+        preparedStatement.setInt(5, ingrediente.getId());
 
         // O stmt executa o comando SQL no BD, e fecha a conexão
         preparedStatement.execute();

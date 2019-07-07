@@ -2,56 +2,56 @@ package Model;
 
 public class Ingrediente extends Produto {
 
-    private float quantidade;
-    private String medidaPadrao;
+    private Medida medida;
+    private String medidaString;
+    private int medidaId;
 
     public Ingrediente() {
         super();
     }
 
     //Construtor com chamada para a classe pai
-    public Ingrediente(float quantidade, String medidaPadrao, int id, String nome, float preco) {
+    public Ingrediente(int id, String nome, float preco, Medida medida) {
         super(id, nome, preco);
-        this.quantidade = quantidade;
-        this.medidaPadrao = medidaPadrao;
+        this.medida = medida;
+        medidaString = medida.getTipo();
+        medidaId = medida.getId();
     }
 
-    public Ingrediente(float quantidade, String medidaPadrao, Produto produto) {
+    public Ingrediente(Produto produto, Medida medida) {
         super(produto.getId(), produto.getNome(), produto.getPreco());
-        this.quantidade = quantidade;
-        this.medidaPadrao = medidaPadrao;
+        this.medida = medida;
+        medidaString = medida.getTipo();
+        medidaId = medida.getId();
     }
 
-    public float getQuantidade() {
-        return quantidade;
+    public Medida getMedida() {
+        return medida;
     }
 
-    public void setQuantidade(float quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public String getMedidaPadrao() {
-        return medidaPadrao;
-    }
-
-    public void setMedidaPadrao(String medidaPadrao) {
-        this.medidaPadrao = medidaPadrao;
+    public void setMedida(Medida medida) {
+        this.medida = medida;
+        medidaString = medida.getTipo();
     }
     
-    public void salvarIngrediente() {
-
+    public String getMedidaString() {
+        return medidaString;
     }
 
-    public void alterarIngrediente() {
-
+    public void setMedidaString(String medidaString) {
+        this.medidaString = medidaString;
+    }
+    
+    public int getMedidaId() {
+        return medidaId;
     }
 
-    public void excluirIngrediente() {
-
+    public void setMedidaId(int medidaId) {
+        this.medidaId = medidaId;
     }
-
+    
     @Override
     public String toString() {
-        return super.toString() + " Medida: " + getMedidaPadrao();
+        return super.toString() + " Medida: " + getMedidaString();
     }
 }
