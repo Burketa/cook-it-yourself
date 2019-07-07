@@ -59,6 +59,8 @@ public class CadastroReceitaIngredienteController {
 
     //region FXML Receitas
     @FXML
+    private TextField pesquisaReceita;
+    @FXML
     private TextField idReceita;
     @FXML
     private TextField nomeReceita;
@@ -82,6 +84,10 @@ public class CadastroReceitaIngredienteController {
     private TableColumn<Receita, Integer> idReceitaColuna;
     @FXML
     private TableColumn<Receita, String> nomeReceitaColuna;
+    @FXML
+    private TableColumn<Receita, String> categoriaReceitaColuna;
+    @FXML
+    private TableColumn<Receita, String> tipicaReceitaColuna;
     @FXML
     private TableColumn<Receita, String> preparoReceitaColuna;
     @FXML
@@ -161,13 +167,13 @@ public class CadastroReceitaIngredienteController {
             } else {
                 JOptionPane.showMessageDialog(null, "Estoque não é numero inteiro.");
             }
-            
+
             if (medidaIngrediente != null) {
                 ingrediente.setMedida(medidaIngredienteObj);
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione uma medida");
             }
-            
+
             db.adicionaIngrediente(ingrediente);
             System.out.println("Ingrediente Adicionado: " + ingrediente.toString());
         } else {
@@ -223,7 +229,7 @@ public class CadastroReceitaIngredienteController {
             } else {
                 JOptionPane.showMessageDialog(null, "Estoque não é numero inteiro.");
             }
-            
+
             if (medidaIngrediente != null) {
                 ingrediente.setMedida(medidaIngredienteObj);
             } else {
@@ -261,7 +267,6 @@ public class CadastroReceitaIngredienteController {
         nomeIngrediente.setText(ingrediente.getNome());
         precoIngrediente.setText(String.valueOf(ingrediente.getPreco()));
         estoqueIngrediente.setText(String.valueOf(ingrediente.getEstoque()));
-        System.out.println(ingrediente.getMedidaId());
         medidaIngrediente.getSelectionModel().select(ingrediente.getMedidaId() - 1);
 
     }
@@ -305,14 +310,19 @@ public class CadastroReceitaIngredienteController {
         String modoPreparoReceitaString = modoPreparoReceita.getText();
         String tempoPreparoReceitaString = tempoPreparoReceita.getText();
         String rendimentoReceitaString = rendimentoReceita.getText();
+        Categoria categoriaIngredienteObj = categoriaReceita.getSelectionModel().getSelectedItem();
+        Tipica tipicaIngredienteObj = tipicaReceita.getSelectionModel().getSelectedItem();
 
-        boolean camposPreenchidos = Utils.receitaCamposPreenchidos(nomeReceitaString, modoPreparoReceitaString, tempoPreparoReceitaString, rendimentoReceitaString);
+        boolean camposPreenchidos = Utils.receitaCamposPreenchidos(nomeReceitaString, modoPreparoReceitaString, tempoPreparoReceitaString,
+                rendimentoReceitaString, categoriaIngredienteObj, tipicaIngredienteObj);
 
         if (camposPreenchidos) {
             receita.setNome(nomeReceitaString);
             receita.setPreparo(modoPreparoReceitaString);
             receita.setTempo(tempoPreparoReceitaString);
             receita.setRendimento(Integer.parseInt(rendimentoReceitaString));
+            receita.setCategoria(categoriaIngredienteObj);
+            receita.setTipica(tipicaIngredienteObj);
 
             db.adicionaReceita(receita);
             System.out.println("Receita Adicionada: " + receita.toString());
@@ -325,7 +335,7 @@ public class CadastroReceitaIngredienteController {
         dbReceita db = new dbReceita();
         List<Receita> listReceita = new ArrayList<>();
         if (isBusca) {
-            listReceita = db.recuperaReceita(pesquisaIngrediente.getText());
+            listReceita = db.recuperaReceita(pesquisaReceita.getText());
         } else {
             listReceita = db.recuperaReceita("");
         }
@@ -333,6 +343,8 @@ public class CadastroReceitaIngredienteController {
             tabelaReceita.getItems().setAll(listReceita);
             idReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("id"));
             nomeReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("nome"));
+            categoriaReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("categoriaString"));
+            tipicaReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("tipicaString"));
             preparoReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("preparo"));
             tempoReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("tempo"));
             rendimentoReceitaColuna.setCellValueFactory(new PropertyValueFactory<>("rendimento"));
@@ -350,8 +362,11 @@ public class CadastroReceitaIngredienteController {
         String modoPreparoReceitaString = modoPreparoReceita.getText();
         String tempoPreparoReceitaString = tempoPreparoReceita.getText();
         String rendimentoReceitaString = rendimentoReceita.getText();
+        Categoria categoriaIngredienteObj = categoriaReceita.getSelectionModel().getSelectedItem();
+        Tipica tipicaIngredienteObj = tipicaReceita.getSelectionModel().getSelectedItem();
 
-        boolean camposPreenchidos = Utils.receitaCamposPreenchidos(nomeReceitaString, modoPreparoReceitaString, tempoPreparoReceitaString, rendimentoReceitaString);
+        boolean camposPreenchidos = Utils.receitaCamposPreenchidos(nomeReceitaString, modoPreparoReceitaString, tempoPreparoReceitaString,
+                rendimentoReceitaString, categoriaIngredienteObj, tipicaIngredienteObj);
 
         if (camposPreenchidos) {
             receita.setId(Integer.parseInt(idReceitaString));
@@ -359,6 +374,8 @@ public class CadastroReceitaIngredienteController {
             receita.setPreparo(modoPreparoReceitaString);
             receita.setTempo(tempoPreparoReceitaString);
             receita.setRendimento(Integer.parseInt(rendimentoReceitaString));
+            receita.setCategoria(categoriaIngredienteObj);
+            receita.setTipica(tipicaIngredienteObj);
 
             db.alteraReceita(receita);
             System.out.println("Receita Alterada");
@@ -393,7 +410,8 @@ public class CadastroReceitaIngredienteController {
         modoPreparoReceita.setText(String.valueOf(receita.getPreparo()));
         tempoPreparoReceita.setText(String.valueOf(receita.getTempo()));
         rendimentoReceita.setText(String.valueOf(receita.getRendimento()));
-        //categoriaReceita.setValue(null);
+        categoriaReceita.getSelectionModel().select(receita.getCategoriaId() - 1);
+        tipicaReceita.getSelectionModel().select(receita.getTipicaId() - 1);
     }
 
     //endregion

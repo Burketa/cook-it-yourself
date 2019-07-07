@@ -152,7 +152,7 @@
                                           <Font name="System Bold" size="16.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="txtBuscarReceita" layoutX="145.0" layoutY="48.0" prefHeight="25.0" prefWidth="409.0">
+                                    <TextField fx:id="pesquisaReceita" layoutX="145.0" layoutY="48.0" prefHeight="25.0" prefWidth="409.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -164,11 +164,13 @@
                                     </Label>
                                     <TableView id="tabela" fx:id="tabelaReceita" layoutX="90.0" layoutY="95.0" onMouseClicked="#clickReceita" prefHeight="224.0" prefWidth="881.0">
                                       <columns>
-                                          <TableColumn fx:id="idReceitaColuna" prefWidth="60.00006103515625" text="ID" />
-                                        <TableColumn fx:id="nomeReceitaColuna" prefWidth="225.59996032714844" text="Nome Receita" />
-                                        <TableColumn fx:id="preparoReceitaColuna" prefWidth="345.60009765625" text="Modo Preparo" />
-                                          <TableColumn fx:id="tempoReceitaColuna" prefWidth="145.599853515625" text="Tempo Preparo" />
-                                          <TableColumn fx:id="rendimentoReceitaColuna" prefWidth="101.79998779296875" text="Rendimento" />
+                                          <TableColumn fx:id="idReceitaColuna" prefWidth="40.79998779296875" text="ID" />
+                                        <TableColumn fx:id="nomeReceitaColuna" prefWidth="164.7999725341797" text="Nome Receita" />
+                                          <TableColumn fx:id="categoriaReceitaColuna" prefWidth="139.20001220703125" text="Categoria" />
+                                          <TableColumn fx:id="tipicaReceitaColuna" prefWidth="124.0" text="Tipica" />
+                                        <TableColumn fx:id="preparoReceitaColuna" prefWidth="212.800048828125" text="Modo Preparo" />
+                                          <TableColumn fx:id="tempoReceitaColuna" prefWidth="109.60009765625" text="Tempo Preparo" />
+                                          <TableColumn fx:id="rendimentoReceitaColuna" prefWidth="86.60003662109375" text="Rendimento" />
                                       </columns>
                                     </TableView>
                                     <Button fx:id="btnBuscarReceita" layoutX="849.0" layoutY="45.0" mnemonicParsing="false" onAction="#botaoRecuperarReceita" prefHeight="35.0" prefWidth="119.0" text="Buscar">

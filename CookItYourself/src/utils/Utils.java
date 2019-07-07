@@ -5,7 +5,9 @@
  */
 package utils;
 
+import Model.Categoria;
 import Model.Medida;
+import Model.Tipica;
 
 /**
  *
@@ -39,8 +41,8 @@ public class Utils {
         }
     }
 
-    public static boolean receitaCamposPreenchidos(String nome, String modo, String tempo, String rendimento) {
-        if ((!nome.equals("")) && (!modo.equals("")) && (!tempo.equals("")) && (!rendimento.equals(""))) {
+    public static boolean receitaCamposPreenchidos(String nome, String modo, String tempo, String rendimento, Categoria categoria, Tipica tipica) {
+        if ((!nome.equals("")) && (!modo.equals("")) && (!tempo.equals("")) && (!rendimento.equals("")) && (categoria != null) && (tipica != null)) {
             return true;
         } else {
             return false;

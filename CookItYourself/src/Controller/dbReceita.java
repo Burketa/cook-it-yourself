@@ -24,8 +24,8 @@ public class dbReceita {
     // INSERT - Adiciona uma receita no banco
     public void adicionaReceita(Receita receita) throws SQLException {
         // Prepara conexão p/ receber o comando SQL
-        String sql = "INSERT INTO receita (nomeReceita, preparoReceita, tempoReceita, rendimentoReceita, idCategoria, idTipica)"
-                + "VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO receita (nomeReceita, preparoReceita, tempoReceita, rendimentoReceita, idCategoria, idTipica, categoriaReceita, tipicaReceita)"
+                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement;
 
         // preparedStatement recebe o comando SQL
@@ -36,11 +36,10 @@ public class dbReceita {
         preparedStatement.setString(2, receita.getPreparo());
         preparedStatement.setString(3, receita.getTempo());
         preparedStatement.setInt(4, receita.getRendimento());
-        //preparedStatement.setInt(5, receita.getIdCategoria());
-        //preparedStatement.setInt(6, receita.getIdTipica());
-        //TODO: Colocar certo as coisas
-        preparedStatement.setInt(5, 1);
-        preparedStatement.setInt(6, 1);
+        preparedStatement.setInt(5, receita.getCategoriaId());
+        preparedStatement.setInt(6, receita.getTipicaId());
+        preparedStatement.setString(7, receita.getCategoriaString());
+        preparedStatement.setString(8, receita.getTipicaString());
 
         // O preparedStatement executa o comando SQL no BD, e fecha a conexão
         preparedStatement.execute();
@@ -76,8 +75,10 @@ public class dbReceita {
             receita.setId(Integer.valueOf(resultSet.getString("idReceita")));
             receita.setNome(resultSet.getString("nomeReceita"));
             receita.setPreparo(resultSet.getString("preparoReceita"));
-            receita.setIdCategoria(Integer.parseInt(resultSet.getString("idCategoria")));
-            receita.setIdTipica(Integer.parseInt(resultSet.getString("idTipica")));
+            receita.setCategoriaId(Integer.parseInt(resultSet.getString("idCategoria")));
+            receita.setTipicaId(Integer.parseInt(resultSet.getString("idTipica")));
+            receita.setCategoriaString(resultSet.getString("categoriaReceita"));
+            receita.setTipicaString(resultSet.getString("tipicaReceita"));
             receita.setRendimento(Integer.parseInt(resultSet.getString("rendimentoReceita")));
             receita.setTempo(resultSet.getString("tempoReceita"));
 
@@ -98,7 +99,7 @@ public class dbReceita {
         // Prepara conexão p/ receber o comando SQL
         //String sql = "UPDATE receita set nomeReceita = ?, preparoReceita = ?, tempoReceita = ?, rendimentoReceita = ?, idCategoria = ?, idTipica = ?"
         //+ " WHERE idReceita = ?";
-        String sql = "UPDATE receita set nomeReceita = ?, preparoReceita = ?, tempoReceita = ?, rendimentoReceita = ?"
+        String sql = "UPDATE receita set nomeReceita = ?, preparoReceita = ?, tempoReceita = ?, rendimentoReceita = ?, idCategoria = ?, idTipica = ?, categoriaReceita = ?, tipicaReceita = ?"
                 + " WHERE idReceita = ?";
         // preparedStatement recebe o comando SQL
         PreparedStatement preparedStatement = this.conexao.prepareStatement(sql);
@@ -108,9 +109,11 @@ public class dbReceita {
         preparedStatement.setString(2, receita.getPreparo());
         preparedStatement.setString(3, receita.getTempo());
         preparedStatement.setInt(4, receita.getRendimento());
-       // preparedStatement.setInt(5, receita.getIdCategoria());
-        // preparedStatement.setInt(6, receita.getIdTipica());
-        preparedStatement.setInt(5, receita.getId());
+        preparedStatement.setInt(5, receita.getCategoriaId());
+        preparedStatement.setInt(6, receita.getTipicaId());
+        preparedStatement.setString(7, receita.getCategoriaString());
+        preparedStatement.setString(8, receita.getTipicaString());
+        preparedStatement.setInt(9, receita.getId());
 
         // O preparedStatement executa o comando SQL no BD, e fecha a conexão
         preparedStatement.execute();

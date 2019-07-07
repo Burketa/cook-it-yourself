@@ -12,8 +12,12 @@ public class Receita {
     private String preparo;
     private String tempo;
     private int rendimento;
-    private int idCategoria;
-    private int idTipica;
+    private Categoria categoria;
+    private Tipica tipica;
+    private int categoriaId;
+    private int tipicaId;
+    private String categoriaString;
+    private String tipicaString;
    
     private ArrayList<Ingrediente> ingredientes;
     
@@ -23,8 +27,8 @@ public class Receita {
        this.preparo = preparoReceita;
        this.tempo = tempoReceita;
        this.rendimento = rendimentoReceita;
-       this.idCategoria = idCategoria;
-       this.idTipica = idTipica;
+       this.categoriaId = idCategoria;
+       this.tipicaId = idTipica;
    }
    
    public Receita(){
@@ -70,20 +74,55 @@ public class Receita {
         this.rendimento = rendimentoReceita;
    }
    
-   public int getIdCategoria() {
-        return idCategoria;
+   public Categoria getCategoria() {
+        return categoria;
    }
    
-   public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
+   public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+        categoriaId = categoria.getId();
+        categoriaString = categoria.getNome();
    }
    
-   public int getIdTipica() {
-        return idTipica;
+   public Tipica getTipica() {
+        return tipica;
    }
    
-   public void setIdTipica(int idTipica) {
-        this.idTipica = idTipica;
+   public void setTipica(Tipica tipica) {
+        this.tipica = tipica;
+        tipicaId = tipica.getId();
+        tipicaString = tipica.getNome();
+   }
+   
+   public String getCategoriaString() {
+        return categoriaString;
+   }
+   
+   public void setCategoriaString(String categoriaString) {
+        this.categoriaString = categoriaString;
+   }
+   public int getCategoriaId() {
+        return categoriaId;
+   }
+   
+   public void setCategoriaId(int categoriaId) {
+        this.categoriaId = categoriaId;
+   }
+   
+   public String getTipicaString() {
+        return tipicaString;
+   }
+   
+   public void setTipicaString(String tipicaString) {
+        this.tipicaString = tipicaString;
+   }
+   
+   public int getTipicaId() {
+        return tipicaId;
+   }
+   
+   public void setTipicaId(int tipicaId) {
+        this.tipicaId = tipicaId;
    }
    
    @Override
