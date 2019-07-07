@@ -142,9 +142,9 @@ public class CadastroReceitaIngredienteController {
     @FXML
     private void botaoFiltro(ActionEvent event) throws IOException {
         System.out.println("Click Iniciar Filtro");
-        Parent root = FXMLLoader.load(getClass().getResource("/View/PrimeiroFiltro.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/Home.fxml"));
         Stage stage = new Stage();
-        stage.setTitle("PrimeiroFiltro");
+        stage.setTitle("Primeiro Filtro");
         stage.setScene(new Scene(root, 1200, 800));
         stage.show();
     }
@@ -492,6 +492,7 @@ public class CadastroReceitaIngredienteController {
         //selecionarReceitaIngrediente();
     }
 
+    //TODO: Arrumar
     private void selecionarReceitaIngrediente() throws SQLException {
         ReceitaIngrediente receitaIngrediente = listaIngredientesReceita.getSelectionModel().getSelectedItem();
 

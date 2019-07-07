@@ -1,7 +1,3 @@
-/*
- * Cook It Yourself
- * Projeto de Ofina de Integração
- */
 package Controller;
 
 import java.sql.Connection;
@@ -56,9 +52,9 @@ public class dbReceita {
             sql = "SELECT * FROM receita";
             preparedStatement = this.conexao.prepareStatement(sql);
         } else {
-            sql = "SELECT * FROM receita WHERE nomeReceita = ?";
+            sql = "SELECT * FROM receita WHERE nomeReceita LIKE ?";
             preparedStatement = this.conexao.prepareStatement(sql);
-            preparedStatement.setString(1, string);
+            preparedStatement.setString(1, '%' + string + '%');
         }
 
         // Recebe o resultado da consulta SQL
@@ -97,10 +93,9 @@ public class dbReceita {
     // UPDATE - Altera uma receita no banco
     public void alteraReceita(Receita receita) throws SQLException {
         // Prepara conexão p/ receber o comando SQL
-        //String sql = "UPDATE receita set nomeReceita = ?, preparoReceita = ?, tempoReceita = ?, rendimentoReceita = ?, idCategoria = ?, idTipica = ?"
-        //+ " WHERE idReceita = ?";
         String sql = "UPDATE receita set nomeReceita = ?, preparoReceita = ?, tempoReceita = ?, rendimentoReceita = ?, idCategoria = ?, idTipica = ?, categoriaReceita = ?, tipicaReceita = ?"
                 + " WHERE idReceita = ?";
+        
         // preparedStatement recebe o comando SQL
         PreparedStatement preparedStatement = this.conexao.prepareStatement(sql);
 
@@ -126,14 +121,55 @@ public class dbReceita {
         // Prepara conexão p/ receber o comando SQL
         String sql = "DELETE FROM Receita WHERE idReceita = ?";
 
-        // stmt recebe o comando SQL
+        // prepareStatement recebe o comando SQL
         PreparedStatement prepareStatement = this.conexao.prepareStatement(sql);
 
-        // Seta o valor do ID p/ a condição de verificação SQL, dentro do stmt
+        // Seta o valor do ID p/ a condição de verificação SQL, dentro do prepareStatement
         prepareStatement.setInt(1, idReceita);
 
         // Executa o codigo SQL, e fecha
         prepareStatement.execute();
         prepareStatement.close();
+    }
+    
+    public List<Receita> recuperaReceitaByCategoria(int idCategoria) throws SQLException {
+        // Prepara conexão p/ receber o comando SQL
+        String sql = "SELECT * FROM receita WHERE idCategoria = ?";
+        PreparedStatement preparedStatement = null;
+        preparedStatement = this.conexao.prepareStatement(sql);
+        preparedStatement.setInt(1, idCategoria);
+        
+
+        // Recebe o resultado da consulta SQL
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        List<Receita> lista = new ArrayList<>();
+
+        // Enquanto existir receitas, pega os valores do ReultSet e vai adicionando na lista
+        while (resultSet.next()) {
+            //  A cada loop, é instanciado um novo objeto, p/ servir de ponte no envio de receitas p/ a lista
+            Receita receita = new Receita();
+
+            // "receita" -> Receita nova - .setNome recebe o campo do banco de String "nome"...
+            receita.setId(Integer.valueOf(resultSet.getString("idReceita")));
+            receita.setNome(resultSet.getString("nomeReceita"));
+            receita.setPreparo(resultSet.getString("preparoReceita"));
+            receita.setCategoriaId(Integer.parseInt(resultSet.getString("idCategoria")));
+            receita.setTipicaId(Integer.parseInt(resultSet.getString("idTipica")));
+            receita.setCategoriaString(resultSet.getString("categoriaReceita"));
+            receita.setTipicaString(resultSet.getString("tipicaReceita"));
+            receita.setRendimento(Integer.parseInt(resultSet.getString("rendimentoReceita")));
+            receita.setTempo(resultSet.getString("tempoReceita"));
+
+            // Adiciona o registro na lista
+            lista.add(receita);
+        }
+
+        // Fecha a conexão com o BD
+        resultSet.close();
+        preparedStatement.close();
+
+        // Retorna a lista de registros, gerados pela consulta
+        return lista;
     }
 }

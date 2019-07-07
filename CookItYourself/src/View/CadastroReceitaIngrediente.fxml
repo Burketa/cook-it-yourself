@@ -305,11 +305,15 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Button layoutX="244.0" layoutY="265.0" mnemonicParsing="false" onAction="#botaoFiltro" prefHeight="310.0" prefWidth="654.0" text="Iniciar Filtro" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="59.0" />
-                                 </font>
-                              </Button>
+                              <Pane prefHeight="770.0" prefWidth="1200.0">
+                                 <children>
+                                    <Button layoutX="36.0" layoutY="33.0" mnemonicParsing="false" onAction="#botaoFiltro" prefHeight="484.0" prefWidth="1129.0" text="Iniciar Filtro" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="59.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </Pane>
                            </children>
                         </AnchorPane>
                     </content>

@@ -1,7 +1,3 @@
-/*
- * Cook It Yourself
- * Projeto de Ofina de Integração
- */
 package Controller;
 
 import java.sql.Connection;
@@ -55,9 +51,9 @@ public class dbIngrediente {
             sql = "SELECT * FROM ingrediente";
             preparedStatement = this.conexao.prepareStatement(sql);
         } else {
-            sql = "SELECT * FROM ingrediente WHERE nomeIngrediente = ?";
+            sql = "SELECT * FROM ingrediente WHERE nomeIngrediente LIKE ?";
             preparedStatement = this.conexao.prepareStatement(sql);
-            preparedStatement.setString(1, string);
+            preparedStatement.setString(1, '%' + string + '%');
         }
         // Recebe o resultado da consulta SQL
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -93,17 +89,17 @@ public class dbIngrediente {
     public void alteraIngrediente(Ingrediente ingrediente) throws SQLException {
         // Prepara conexão p/ receber o comando SQL
         String sql = "UPDATE ingrediente set nomeIngrediente = ?, precoIngrediente = ?, estoqueIngrediente = ?, medidaIngrediente = ? WHERE idIngrediente = ?";
-        // stmt recebe o comando SQL
+        // preparedStatement recebe o comando SQL
         PreparedStatement preparedStatement = this.conexao.prepareStatement(sql);
 
-        // Seta os valores p/ o stmt, substituindo os "?"
+        // Seta os valores p/ o preparedStatement, substituindo os "?"
         preparedStatement.setString(1, ingrediente.getNome());
         preparedStatement.setFloat(2, ingrediente.getPreco());
         preparedStatement.setInt(3, ingrediente.getEstoque());
         preparedStatement.setString(4, ingrediente.getMedida().getTipo());
         preparedStatement.setInt(5, ingrediente.getId());
 
-        // O stmt executa o comando SQL no BD, e fecha a conexão
+        // O preparedStatement executa o comando SQL no BD, e fecha a conexão
         preparedStatement.execute();
         preparedStatement.close();
     }

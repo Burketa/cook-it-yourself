@@ -15,6 +15,8 @@ import Model.Tipica;
  */
 public class Utils {
 
+    public static int primeiraSelecao = 0;
+    
     public static boolean isInteger(String input) {
         try {
             Integer.parseInt(input);
