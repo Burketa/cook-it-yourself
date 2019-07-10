@@ -1,11 +1,6 @@
-/*
- * Cook It Yourself
- * Projeto de Ofina de Integração
- */
 package Controller;
 
 import Model.Ingrediente;
-import Model.Receita;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,8 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Model.ReceitaIngrediente;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
-import javax.swing.JOptionPane;
 import utils.Utils;
 
 public class dbReceitaIngrediente {
@@ -35,17 +28,17 @@ public class dbReceitaIngrediente {
 
         PreparedStatement preparedStatement;
 
-        // stmt recebe o comando SQL
+        // preparedStatement recebe o comando SQL
         preparedStatement = this.conexao.prepareStatement(sql);
 
-        // Seta os valores p/ o stmt, substituindo os "?"
+        // Seta os valores p/ o preparedStatement, substituindo os "?"
         preparedStatement.setInt(1, receitaIngrediente.getIdReceita());
         preparedStatement.setInt(2, receitaIngrediente.getIdIngrediente());
         preparedStatement.setFloat(3, receitaIngrediente.getQuantidade());
 
         System.out.println("Adicionado: " + receitaIngrediente);
 
-        // O stmt executa o comando SQL no BD, e fecha a conexão
+        // O preparedStatement executa o comando SQL no BD, e fecha a conexão
         preparedStatement.execute();
         preparedStatement.close();
     }

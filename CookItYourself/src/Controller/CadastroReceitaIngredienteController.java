@@ -10,7 +10,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -109,6 +112,8 @@ public class CadastroReceitaIngredienteController {
         recuperarIngrediente(false);
         recuperarReceita(false);
         configurarComboBoxes();
+        //ingredienteTableView.focusedProperty().addListener(ingredienteChangeListener);
+        //receitaTableView.focusedProperty().addListener(receitaChangeListener);
     }
 
     @FXML
@@ -264,7 +269,7 @@ public class CadastroReceitaIngredienteController {
         ingredienteNomeTextField.setText(ingrediente.getNome());
         ingredientePrecoTextField.setText(String.valueOf(ingrediente.getPreco()));
         ingredienteEstoqueTextField.setText(String.valueOf(ingrediente.getEstoque()));
-        ingredienteMedidaComboBox.getSelectionModel().select(ingrediente.getMedidaId() - 1);
+        ingredienteMedidaComboBox.getSelectionModel().select(ingrediente.getMedidaId());
     }
     // </editor-fold>
 
@@ -349,13 +354,13 @@ public class CadastroReceitaIngredienteController {
     public void recuperarReceita(boolean isBusca) throws SQLException {
         dbReceita db = new dbReceita();
         List<Receita> listReceita = new ArrayList<>();
-        
+
         if (isBusca) {
             listReceita = db.recuperaReceita(receitaPesquisaTextField.getText());
         } else {
             listReceita = db.recuperaReceita("");
         }
-        
+
         if (listReceita.size() > 0) {
             receitaTableView.getItems().setAll(listReceita);
             receitaIdColuna.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -428,7 +433,6 @@ public class CadastroReceitaIngredienteController {
         List<ReceitaIngrediente> ingredienteList = db.getReceitaIngredientes(receita.getId());
 
         receitaIngredientesListView.setItems(FXCollections.observableArrayList(ingredienteList));
-
     }
 
     public void deletarIngredienteReceita() throws SQLException {
@@ -470,11 +474,19 @@ public class CadastroReceitaIngredienteController {
         receitaPreparoTextField.setText(String.valueOf(receita.getPreparo()));
         receitaTempoTextField.setText(String.valueOf(receita.getTempo()));
         receitaRendimentoTextField.setText(String.valueOf(receita.getRendimento()));
-        receitaCategoriaComboBox.getSelectionModel().select(receita.getCategoriaId() - 1);
-        receitaTipicaComboBox.getSelectionModel().select(receita.getTipicaId() - 1);
-
+        receitaCategoriaComboBox.getSelectionModel().select(receita.getCategoriaId());
+        receitaTipicaComboBox.getSelectionModel().select(receita.getTipicaId());
+        
         recuperarIngredienteReceita(receita);
-        //listaIngredientesReceita.getSelectionModel().select(0);
+        
+        dbIngrediente dbIngrediente = new dbIngrediente();
+        
+        ReceitaIngrediente receitaIngrediente = receitaIngredientesListView.getItems().get(0);
+        
+        Ingrediente ingrediente = dbIngrediente.recuperaIngredienteById(receitaIngrediente.getIdIngrediente());
+        receitaIngredienteComboBox.getSelectionModel().select(ingrediente);
+        
+        receitaQuantidadeTextField.setText(String.valueOf(receitaIngrediente.getQuantidade()));
     }
     // </editor-fold>
 
@@ -504,10 +516,63 @@ public class CadastroReceitaIngredienteController {
         dbCategoria dbCategoria = new dbCategoria();
         dbMedida dbMedida = new dbMedida();
 
-        receitaCategoriaComboBox.setItems(FXCollections.observableArrayList(dbCategoria.recuperarCategorias()));
-        receitaTipicaComboBox.setItems(FXCollections.observableArrayList(dbTipica.recuperarTipicas()));
-        receitaIngredienteComboBox.setItems(FXCollections.observableArrayList(dbIngrediente.recuperaIngredientes("")));
-        ingredienteMedidaComboBox.setItems(FXCollections.observableArrayList(dbMedida.recuperarMedidas("")));
+        ObservableList<Categoria> listCategoria = FXCollections.observableArrayList(dbCategoria.recuperarCategorias());
+        listCategoria.add(0, null);
+
+        ObservableList<Tipica> listaTipica = FXCollections.observableArrayList(dbTipica.recuperarTipicas());
+        listaTipica.add(0, null);
+
+        ObservableList<Ingrediente> listaIngrediente = FXCollections.observableArrayList(dbIngrediente.recuperaIngredientes(""));
+        listaIngrediente.add(0, null);
+
+        ObservableList<Medida> listaMedida = FXCollections.observableArrayList(dbMedida.recuperarMedidas(""));
+        listaMedida.add(0, null);
+
+        receitaCategoriaComboBox.setItems(listCategoria);
+        receitaTipicaComboBox.setItems(listaTipica);
+        receitaIngredienteComboBox.setItems(listaIngrediente);
+        ingredienteMedidaComboBox.setItems(listaMedida);
     }
+
+    public void deselecionarIngrediente() {
+        ingredienteIdTextField.setText("");
+        ingredienteNomeTextField.setText("");
+        ingredienteEstoqueTextField.setText("");
+        ingredientePrecoTextField.setText("");
+        ingredienteMedidaComboBox.getSelectionModel().select(0);
+    }
+
+    public void deselecionarReceita() {
+        receitaIdTextField.setText("");
+        receitaNomeTextField.setText("");
+        receitaPreparoTextField.setText("");
+        receitaTempoTextField.setText("");
+        receitaRendimentoTextField.setText("");
+        ingredientePrecoTextField.setText("");
+        receitaCategoriaComboBox.getSelectionModel().select(0);
+        receitaTipicaComboBox.getSelectionModel().select(0);
+        receitaIngredienteComboBox.getSelectionModel().select(0);
+        receitaQuantidadeTextField.setText("");
+        receitaIngredientesListView.setItems(null);
+        //buttonAdicionarIngredienteReceita.setDisable(true);
+    }
+    
+    private ChangeListener<Boolean> ingredienteChangeListener = new ChangeListener<Boolean>() {
+
+        @Override
+        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+            if(!newValue)
+                deselecionarIngrediente();
+        }
+    };
+    
+    private ChangeListener<Boolean> receitaChangeListener = new ChangeListener<Boolean>() {
+
+        @Override
+        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+            if(!newValue)
+                deselecionarReceita();
+        }
+    };
     // </editor-fold>
 }

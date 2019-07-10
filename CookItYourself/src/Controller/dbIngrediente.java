@@ -121,4 +121,34 @@ public class dbIngrediente {
         preparedStatement.close();
 
     }
+
+    public Ingrediente recuperaIngredienteById(int id) throws SQLException {
+        // Prepara conexão p/ receber o comando SQL
+        String sql = "SELECT * FROM ingrediente WHERE idIngrediente = ?";
+
+        PreparedStatement preparedStatement = this.conexao.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+
+        // Recebe o resultado da consulta SQL
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        Ingrediente ingrediente = new Ingrediente();
+        
+        while (resultSet.next()) {
+            // "ingrediente" -> Ingrediente novo - .setNome recebe o campo do banco de String "nome"...
+            ingrediente.setId(Integer.valueOf(resultSet.getString("idIngrediente")));
+            ingrediente.setNome(resultSet.getString("nomeIngrediente"));
+            ingrediente.setPreco(resultSet.getFloat("precoIngrediente"));
+            ingrediente.setEstoque(resultSet.getInt("estoqueIngrediente"));
+            ingrediente.setMedidaId(Utils.medidaStringToId(resultSet.getString("medidaIngrediente")));
+            ingrediente.setMedidaString(resultSet.getString("medidaIngrediente"));
+        }
+        
+        // Fecha a conexão com o BD
+        resultSet.close();
+        preparedStatement.close();
+
+        // Retorna a lista de ingrediente, gerados pela consulta
+        return ingrediente;
+    }
 }
