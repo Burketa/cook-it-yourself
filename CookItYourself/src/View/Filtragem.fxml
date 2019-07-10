@@ -89,7 +89,7 @@
             <Font name="Tahoma" size="14.0" />
          </font>
       </Label>
-      <JFXButton fx:id="buttonWhats" layoutX="1108.0" layoutY="766.0" style="-fx-background-color: white; -fx-border-color: green; -fx-border-radius: 1cm;" text="WhatsApp">
+      <JFXButton fx:id="buttonWhats" layoutX="1108.0" layoutY="766.0" onAction="#enviarWhatsapp" style="-fx-background-color: white; -fx-border-color: green; -fx-border-radius: 1cm;" text="WhatsApp">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

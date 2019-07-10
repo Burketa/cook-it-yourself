@@ -12,14 +12,18 @@ import java.sql.SQLException;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import utils.MandarWhatsapp;
 
 public class FiltragemController {
-
+    
+    private Receita receitaSelecionada;
+    
     @FXML
     private JFXComboBox<Tipica> tipicaComboBox;
 
@@ -69,6 +73,8 @@ public class FiltragemController {
         nomeReceita.setText(receita.getNome());
         listaIngredientes.setItems(FXCollections.observableArrayList(ingredienteList));
         modoPreparo.setText(receita.getPreparo());
+        
+        receitaSelecionada = receita;
     }
 
     public void configurarComboBoxes() throws SQLException {
@@ -83,5 +89,10 @@ public class FiltragemController {
         listIngrediente.add(0, null);
         incluirIngredienteComboBox.setItems(listIngrediente);
         excluirIngredienteComboBox.setItems(listIngrediente);
+    }
+    
+    public void enviarWhatsapp(ActionEvent event)
+    {
+        MandarWhatsapp.enviar(receitaSelecionada.getPreparo());
     }
 }
