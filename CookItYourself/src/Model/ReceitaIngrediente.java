@@ -1,8 +1,8 @@
 package Model;
 
 public class ReceitaIngrediente {
-    private Receita receita;
-    private Ingrediente ingrediente;
+    private Receita receita = new Receita();
+    private Ingrediente ingrediente = new Ingrediente();
     private int idReceita;
     private int idIngrediente;
     private float quantidade;
@@ -62,6 +62,6 @@ public class ReceitaIngrediente {
    @Override
    public String toString()
    {
-       return "" + getIdIngrediente() + " - " + getQuantidade();//ingrediente.getNome() + " - " + getQuantidade() + "" + ingrediente.getMedidaString();
+       return "" + getIdIngrediente() + " - " + ingrediente.getNome() + " - " + getQuantidade() + " " + ingrediente.getMedidaString();
    }
 }

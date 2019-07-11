@@ -437,7 +437,7 @@ public class CadastroReceitaIngredienteController {
 
     public void deletarIngredienteReceita() throws SQLException {
         dbReceitaIngrediente db = new dbReceitaIngrediente();
-
+        System.out.println(receitaTableView.getSelectionModel().getSelectedItem());
         int receitaId = receitaTableView.getSelectionModel().getSelectedItem().getId();
         int ingredienteId = receitaIngredientesListView.getSelectionModel().getSelectedItem().getIdIngrediente();
 

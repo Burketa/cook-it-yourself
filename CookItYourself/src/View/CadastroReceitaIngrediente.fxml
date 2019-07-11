@@ -47,7 +47,7 @@
                                           <Font size="14.0" />
                                        </font>
                                     </TextField>
-                                    <TableView fx:id="ingredienteTableView" layoutX="90.0" layoutY="95.0" onMouseClicked="#clickIngrediente" prefHeight="230.0" prefWidth="847.0">
+                                    <TableView fx:id="ingredienteTableView" layoutX="90.0" layoutY="95.0" onMouseClicked="#clickIngrediente" prefHeight="230.0" prefWidth="613.0">
                                       <columns>
                                           <TableColumn fx:id="ingredienteIdColuna" prefWidth="43.20001220703125" text="ID" />
                                         <TableColumn fx:id="ingredienteNomeColuna" prefWidth="151.19993591308594" text="Nome Ingrediente" />
@@ -166,8 +166,8 @@
                                       <columns>
                                           <TableColumn fx:id="receitaIdColuna" prefWidth="40.79998779296875" text="ID" />
                                         <TableColumn fx:id="receitaNomeColuna" prefWidth="164.7999725341797" text="Nome Receita" />
-                                          <TableColumn fx:id="receitaCategoriaColuna" prefWidth="139.20001220703125" text="Categoria" />
-                                          <TableColumn fx:id="receitaTipicaColuna" prefWidth="124.0" text="Tipica" />
+                                          <TableColumn fx:id="receitaCategoriaColuna" prefWidth="153.60003662109375" text="Categoria" />
+                                          <TableColumn fx:id="receitaTipicaColuna" prefWidth="110.39996337890625" text="Tipica" />
                                         <TableColumn fx:id="receitaPreparoColuna" prefWidth="212.800048828125" text="Modo Preparo" />
                                           <TableColumn fx:id="receitaTempoColuna" prefWidth="109.60009765625" text="Tempo Preparo" />
                                           <TableColumn fx:id="receitaRendimentoColuna" prefWidth="86.60003662109375" text="Rendimento" />

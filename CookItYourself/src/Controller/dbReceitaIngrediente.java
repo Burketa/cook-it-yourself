@@ -60,14 +60,16 @@ public class dbReceitaIngrediente {
             //  A cada loop, é instanciado um novo objeto, p/ servir de ponte no envio de registros p/ a lista
             ReceitaIngrediente receitaIngrediente = new ReceitaIngrediente();
 
-            // "c" -> Cliente novo - .setNome recebe o campo do banco de String "nome" 
+            // "receitaIngrediente" -> ReceitaIngrediente nova - .setIdReceita recebe o id...
             receitaIngrediente.setIdReceita(resultSet.getInt("idReceita"));
             receitaIngrediente.setIdIngrediente(resultSet.getInt("idIngrediente"));
             receitaIngrediente.setQuantidade(resultSet.getFloat("quantidade"));
 
             //
             dbIngrediente dbIngrediente = new dbIngrediente();
-            List<Ingrediente> ingredienteList = dbIngrediente.recuperaIngredientes("");
+            Ingrediente ingrediente = dbIngrediente.recuperaIngredienteById(receitaIngrediente.getIdIngrediente());
+            
+            receitaIngrediente.setIngrediente(ingrediente);
             //
 
             // Adiciona o registro na lista

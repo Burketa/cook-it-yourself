@@ -1,5 +1,7 @@
 package Model;
 
+import utils.Utils;
+
 public class Ingrediente extends Produto {
 
     private Medida medida;
