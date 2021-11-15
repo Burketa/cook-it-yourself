@@ -8,10 +8,9 @@ import Model.ReceitaIngrediente;
 import Model.Tipica;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -120,7 +119,7 @@ public class CadastroReceitaIngredienteController {
     @FXML
     private void botaoFiltro(ActionEvent event) throws IOException {
         System.out.println("Click Iniciar Filtro");
-        Parent root = FXMLLoader.load(getClass().getResource("/View/Home.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/View/Home.fxml")));
         Stage stage = new Stage();
         stage.setTitle("Primeiro Filtro");
         stage.setScene(new Scene(root, 1200, 800));
@@ -354,7 +353,7 @@ public class CadastroReceitaIngredienteController {
 
     public void recuperarReceita(boolean isBusca) throws SQLException {
         dbReceita db = new dbReceita();
-        List<Receita> listReceita = new ArrayList<>();
+        List<Receita> listReceita;
 
         if (isBusca) {
             listReceita = db.recuperaReceita(receitaPesquisaTextField.getText());
@@ -391,7 +390,7 @@ public class CadastroReceitaIngredienteController {
                 tempo, rendimento, categoria, tipica);
 
         if (camposPreenchidos) {
-            Receita receita = configurarReceita("", nome, preparo, tempo,
+            Receita receita = configurarReceita(id, nome, preparo, tempo,
                     rendimento, categoria, tipica);
             db.alteraReceita(receita);
             System.out.println("Receita Alterada: " + receita);
