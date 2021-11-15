@@ -19,7 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
-import utils.MandarWhatsapp;
+//import utils.MandarWhatsapp;
 
 public class FiltragemController {
 
@@ -98,7 +98,7 @@ public class FiltragemController {
     }
 
     public void enviarWhatsapp(ActionEvent event) {
-        MandarWhatsapp.enviar(receitaSelecionada.getPreparo());
+        //MandarWhatsapp.enviar(receitaSelecionada.getPreparo());
     }
 
     public void botaoFitlrar(ActionEvent event) throws SQLException {

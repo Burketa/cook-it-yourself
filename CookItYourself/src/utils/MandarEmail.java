@@ -1,3 +1,4 @@
+/*
 package utils;
 
 import java.util.Properties;
@@ -14,7 +15,9 @@ public class MandarEmail
 {
   public static void main(String[] args) {
     Properties props = new Properties();
-    /** Parâmetros de conexão com servidor Gmail */
+    */
+/** Parâmetros de conexão com servidor Gmail *//*
+
     props.put("mail.smtp.host", "smtp.gmail.com");
     props.put("mail.smtp.socketFactory.port", "465");
     props.put("mail.smtp.socketFactory.class", 
@@ -31,7 +34,9 @@ public class MandarEmail
            }
       });
  
-    /** Ativa Debug para sessão */
+    */
+/** Ativa Debug para sessão *//*
+
     session.setDebug(true);
  
     try {
@@ -46,7 +51,9 @@ public class MandarEmail
       message.setRecipients(Message.RecipientType.TO, toUser);
       message.setSubject("Enviando email com JavaMail");//Assunto
       message.setText("Enviei este email utilizando JavaMail com minha conta GMail!");
-      /**Método para enviar a mensagem criada*/
+      */
+/**Método para enviar a mensagem criada*//*
+
       Transport.send(message);
  
       System.out.println("Feito!!!");
@@ -55,4 +62,4 @@ public class MandarEmail
         throw new RuntimeException(e);
     }
   }
-}
+}*/
