@@ -53,7 +53,7 @@ public class Utils {
 
     public static int medidaStringToId(String string) {
         switch (string) {
-            case "ml":
+            default:
                 return 1;
             case "l":
                 return 2;
@@ -75,8 +75,6 @@ public class Utils {
                 return 10;
             case "unidade":
                 return 11;
-            default:
-                return 1;
         }
     }
 

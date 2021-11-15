@@ -10,8 +10,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -175,7 +176,7 @@ public class CadastroReceitaIngredienteController {
 
     public void recuperarIngrediente(boolean isBusca) throws SQLException {
         dbIngrediente db = new dbIngrediente();
-        List<Ingrediente> listIngrediente = new ArrayList<>();
+        List<Ingrediente> listIngrediente;
         if (isBusca) {
             listIngrediente = db.recuperaIngredientes(ingredientePesquisaTextField.getText());
         } else {
@@ -309,7 +310,7 @@ public class CadastroReceitaIngredienteController {
         //recuperarReceita(false);
         //if (ingredienteReceita.getSelectionModel().getSelectedItem() != null) {
         adicionarIngredienteReceita();
-        if ((Receita) receitaTableView.getSelectionModel().getSelectedItem() != null) {
+        if (receitaTableView.getSelectionModel().getSelectedItem() != null) {
             recuperarIngredienteReceita(receitaTableView.getSelectionModel().getSelectedItem());
         }
         //} else {
@@ -494,7 +495,7 @@ public class CadastroReceitaIngredienteController {
     @FXML
     public void clickReceitaIngrediente(MouseEvent event) throws IOException, SQLException {
         System.out.println("Click ReceitaIngrediente");
-        //selecionarReceitaIngrediente();
+        selecionarReceitaIngrediente();
     }
 
     //TODO: Arrumar
@@ -557,22 +558,14 @@ public class CadastroReceitaIngredienteController {
         //buttonAdicionarIngredienteReceita.setDisable(true);
     }
     
-    private ChangeListener<Boolean> ingredienteChangeListener = new ChangeListener<Boolean>() {
-
-        @Override
-        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-            if(!newValue)
-                deselecionarIngrediente();
-        }
+    private final ChangeListener<Boolean> ingredienteChangeListener = (observable, oldValue, newValue) -> {
+        if(!newValue)
+            deselecionarIngrediente();
     };
-    
-    private ChangeListener<Boolean> receitaChangeListener = new ChangeListener<Boolean>() {
 
-        @Override
-        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-            if(!newValue)
-                deselecionarReceita();
-        }
+    private final ChangeListener<Boolean> receitaChangeListener = (observable, oldValue, newValue) -> {
+        if(!newValue)
+            deselecionarReceita();
     };
     // </editor-fold>
 }

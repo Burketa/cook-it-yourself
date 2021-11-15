@@ -68,7 +68,7 @@ public class dbReceita {
             Receita receita = new Receita();
 
             // "receita" -> Receita nova - .setNome recebe o campo do banco de String "nome"...
-            receita.setId(Integer.valueOf(resultSet.getString("idReceita")));
+            receita.setId(Integer.parseInt(resultSet.getString("idReceita")));
             receita.setNome(resultSet.getString("nomeReceita"));
             receita.setPreparo(resultSet.getString("preparoReceita"));
             receita.setCategoriaId(Integer.parseInt(resultSet.getString("idCategoria")));

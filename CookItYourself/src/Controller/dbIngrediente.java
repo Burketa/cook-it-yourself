@@ -12,7 +12,7 @@ import utils.Utils;
 public class dbIngrediente {
 
     //Conexão com o banco
-    private Connection conexao;
+    private final Connection conexao;
 
     public dbIngrediente() throws SQLException {
         this.conexao = Conexao.getConexao();
@@ -66,7 +66,7 @@ public class dbIngrediente {
             Ingrediente ingrediente = new Ingrediente();
 
             // "ingrediente" -> Ingrediente novo - .setNome recebe o campo do banco de String "nome"...
-            ingrediente.setId(Integer.valueOf(resultSet.getString("idIngrediente")));
+            ingrediente.setId(Integer.parseInt(resultSet.getString("idIngrediente")));
             ingrediente.setNome(resultSet.getString("nomeIngrediente"));
             ingrediente.setPreco(resultSet.getFloat("precoIngrediente"));
             ingrediente.setEstoque(resultSet.getInt("estoqueIngrediente"));
@@ -119,7 +119,6 @@ public class dbIngrediente {
         // Executa o codigo SQL, e fecha
         preparedStatement.execute();
         preparedStatement.close();
-
     }
 
     public Ingrediente recuperaIngredienteById(int id) throws SQLException {
@@ -136,7 +135,7 @@ public class dbIngrediente {
         
         while (resultSet.next()) {
             // "ingrediente" -> Ingrediente novo - .setNome recebe o campo do banco de String "nome"...
-            ingrediente.setId(Integer.valueOf(resultSet.getString("idIngrediente")));
+            ingrediente.setId(Integer.parseInt(resultSet.getString("idIngrediente")));
             ingrediente.setNome(resultSet.getString("nomeIngrediente"));
             ingrediente.setPreco(resultSet.getFloat("precoIngrediente"));
             ingrediente.setEstoque(resultSet.getInt("estoqueIngrediente"));

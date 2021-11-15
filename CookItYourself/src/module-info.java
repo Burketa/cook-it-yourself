@@ -14,4 +14,7 @@ module CookItYourself {
     //requires twilio;
 
     opens Controller;
+    opens Model;
+    opens utils;
+    opens View;
 }
